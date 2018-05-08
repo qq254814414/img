@@ -18,8 +18,8 @@ android {
         applicationId "com.mengxin.img"
         minSdkVersion depend_android["minSdkVersion"]
         targetSdkVersion depend_android["targetSdkVersion"]
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 0
+        versionName "0.0.1"
     }
     buildTypes {
         debug {

@@ -5,7 +5,7 @@
     <string name="previous_one">上一个</string>
     <string name="drawer_open">抽屉打开</string>
     <string name="drawer_close">抽屉关闭</string>
-    <string name="tip">天天吃肉吃不胖，天天DrySister身体棒</string>
+    <string name="tip">天天吃肉吃不胖，天天ReCode身体棒</string>
 
     <!-- 抽屉菜单 -->
     <string name="menu_see">看看</string>
@@ -20,7 +20,7 @@
     <string name="menu_else">其他</string>
     <string name="menu_else_setting">设置</string>
     <string name="menu_else_about">关于</string>
-    <string name="menu_drysister_version">DrySister Version: %1$s</string>
+    <string name="menu_drysister_version">Img Version: %1$s</string>
 
     <!-- Working -->
     <string name="working">前方正在施工&#8230;</string>

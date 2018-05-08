@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.mengxin.img.R;
+import com.mengxin.img.utils.PackageUtils;
+import com.mengxin.img.utils.ResUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mFgManager = getSupportFragmentManager();
         initView();
+        initData();
     }
 
     private void initView() {
@@ -45,6 +48,17 @@ public class MainActivity extends AppCompatActivity {
                 this, drawer_layout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawer_layout.addDrawerListener(toggle);
         toggle.syncState();
+    }
+
+    private void initData() {
+//        mFgManager.beginTransaction().replace(R.id.cly_main_content,
+//                LittleSisterFragment.newInstance(), DryConstant.FG_LITTLE_SISTER).commit();
+//        toolbar.setTitle(ResUtils.getString(R.string.menu_see_little_sister));
+        String version = PackageUtils.packageName();
+        if(version != null) {
+            String msg = String.format(ResUtils.getString(R.string.menu_drysister_version), version);
+            tv_nav_title.setText(msg);
+        }
     }
 
     @Override
