@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/menu_see">
+        <menu>
+            <item
+                android:id="@+id/nav_see_little_sister"
+                android:icon="@drawable/ic_menu_sister"
+                android:title="@string/menu_see_little_sister" />
+            <item
+                android:id="@+id/nav_see_news"
+                android:icon="@drawable/ic_menu_news"
+                android:title="@string/menu_see_news" />
+        </menu>
+    </item>
+
+    <item android:title="@string/menu_use" >
+        <menu>
+            <item
+                android:id="@+id/nav_use_check_weather"
+                android:icon="@drawable/ic_menu_weather"
+                android:title="@string/menu_use_check_weather" />
+            <item
+                android:id="@+id/nav_use_check_subway"
+                android:icon="@drawable/ic_menu_subway"
+                android:title="@string/menu_use_check_subway" />
+            <item
+                android:id="@+id/nav_use_tools"
+                android:icon="@drawable/ic_menu_tools"
+                android:title="@string/menu_use_tools" />
+        </menu>
+    </item>
+
+    <item android:title="@string/menu_else" >
+        <menu>
+            <item
+                android:id="@+id/nav_else_setting"
+                android:icon="@drawable/ic_menu_setting"
+                android:title="@string/menu_else_setting" />
+            <item
+                android:id="@+id/nav_else_about"
+                android:icon="@drawable/ic_menu_about"
+                android:title="@string/menu_else_about" />
+        </menu>
+    </item>
+
+</menu>
+
