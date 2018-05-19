@@ -9,7 +9,8 @@ def rxAndroidVersion = "2.0.1"
 def okhttpVersion = "3.9.1"
 def retrofitVersion = "2.3.0"
 def glideVersion = "4.6.1"
-def timberViersion = "4.6.1"
+def timberVersion = "4.6.1"
+def fastJsonVersion = "1.2.47"
 
 
 project.ext {
@@ -42,7 +43,8 @@ project.ext {
             "glide"             : "com.github.bumptech.glide:glide:${glideVersion}",
             "glide-compiler"    : "com.github.bumptech.glide:compiler:${glideVersion}",
 
-            "timber"            : "com.jakewharton.timber:timber:${timberViersion}"
-
+            "timber"            : "com.jakewharton.timber:timber:${timberVersion}",
+            "fastJson"          : "com.alibaba:fastjson:${fastJsonVersion}",
+            "fastJsonConverter" : "org.ligboy.retrofit2:converter-fastjson-android:2.1.0"
     ]
 }

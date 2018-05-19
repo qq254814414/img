@@ -8,6 +8,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import io.reactivex.FlowableTransformer;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -19,9 +20,16 @@ import timber.log.Timber;
  */
 
 public class RxSchedulers {
-    public static <T> ObservableTransformer<T, T> compose() {
+    public static <T>FlowableTransformer<T, T> flcompose() {
         return upstream ->
                 upstream.subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+    }
+    public static <T> ObservableTransformer<T, T> obcompose() {
+        return upstream ->
+                upstream.subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
     }
 

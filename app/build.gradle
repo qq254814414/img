@@ -60,6 +60,8 @@ dependencies {
     implementation depend_lib["glide"]
     annotationProcessor depend_lib["glide-compiler"]
     implementation depend_lib["timber"]
+    implementation depend_lib["fastJson"]
+    implementation depend_lib["fastJsonConverter"]
 
 }
 
