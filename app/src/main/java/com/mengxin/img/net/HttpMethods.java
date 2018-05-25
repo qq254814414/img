@@ -18,7 +18,7 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://www.ssdr.fun/";
+    private static final String BASE_URL = "http://10.7.86.85:8080/";
     private Retrofit retrofit;
     private ImgApiService imgApiService;
 

@@ -1,6 +1,7 @@
 package com.mengxin.img.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +12,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mengxin.img.R;
 import com.mengxin.img.data.dto.Img;
-import com.mengxin.img.utils.ToastUtils;
+import com.mengxin.img.ui.activity.PictureDetailActivity;
 
 import java.util.ArrayList;
 
 public class IllustrationsAdapter extends RecyclerView.Adapter<IllustrationsAdapter.ViewHolder>{
 
     private Context mContext;
-    private ArrayList<Img> imgs = new ArrayList<>();
+    private ArrayList<Img> imgs;
 
     public IllustrationsAdapter(Context mContext, ArrayList<Img> imgs) {
         this.mContext = mContext;
@@ -37,7 +38,7 @@ public class IllustrationsAdapter extends RecyclerView.Adapter<IllustrationsAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mz, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_img, parent, false));
     }
 
     @Override
@@ -65,12 +66,12 @@ public class IllustrationsAdapter extends RecyclerView.Adapter<IllustrationsAdap
                     .apply(new RequestOptions()
                             .centerCrop())
                     .into(img_content);
-            /** 图片点击事件
+            //图片点击事件
             img_content.setOnClickListener(view -> {
                 Intent intent = new Intent(mContext, PictureDetailActivity.class);
-                intent.putExtra("pic_url", data.getSrc());
+//                intent.putExtra("pic_url", data.getSrc());
                 mContext.startActivity(intent);
-            }); */
+            });
         }
     }
 

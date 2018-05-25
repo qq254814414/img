@@ -6,10 +6,10 @@ import java.util.Date;
 public class Img {
     private Long id;
     private String name;
-    private Long authorId;
+    private Author author;
     private Date publishTime;
     private String introduction;
-    private Long typeId;
+    private Type type;
     private Long clickNum;
     private Long favoriteNum;
     private String src;
@@ -30,12 +30,36 @@ public class Img {
         this.name = name;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Date getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
+    }
+
     public String getIntroduction() {
         return introduction;
     }
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Long getClickNum() {
@@ -61,29 +85,4 @@ public class Img {
     public void setSrc(String src) {
         this.src = src;
     }
-
-    public Long getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
-
-    public Date getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(Date publishTime) {
-        this.publishTime = publishTime;
-    }
-
-    public Long getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Long typeId) {
-        this.typeId = typeId;
-    }
-
 }
