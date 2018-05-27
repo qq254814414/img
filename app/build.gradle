@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    annotationProcessor depend_lib["glide-compiler"]
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation depend_lib["junit"]
     implementation depend_lib["appcompat-v7"]
@@ -55,14 +56,12 @@ dependencies {
     implementation depend_lib["okhttp"]
     implementation depend_lib["okhttp-interceptor"]
     implementation depend_lib["retrofit"]
-    implementation depend_lib["converter-gson"]
     implementation depend_lib["rxjava2-adapter"]
     implementation depend_lib["glide"]
-    annotationProcessor depend_lib["glide-compiler"]
     implementation depend_lib["timber"]
     implementation depend_lib["fastJson"]
     implementation depend_lib["fastJsonConverter"]
-
+    implementation depend_lib["roundedimageview"]
 }
 
 

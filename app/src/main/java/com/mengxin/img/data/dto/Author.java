@@ -10,8 +10,9 @@ public class Author{
     private String passWord;
     private String name;
     private String headImg;
+    private String bgImg;
     private String introduction;
-    private List<Img> imgList = new ArrayList<Img>();
+    private ArrayList<Img> imgList = new ArrayList<Img>();
 
     public Long getId() {
         return id;
@@ -53,6 +54,14 @@ public class Author{
         this.headImg = headImg;
     }
 
+    public String getBgImg() {
+        return bgImg;
+    }
+
+    public void setBgImg(String bgImg) {
+        this.bgImg = bgImg;
+    }
+
     public String getIntroduction() {
         return introduction;
     }
@@ -61,12 +70,11 @@ public class Author{
         this.introduction = introduction;
     }
 
-    public List<Img> getImgList() {
+    public ArrayList<Img> getImgList() {
         return imgList;
     }
 
-    public void setImgList(List<Img> imgList) {
+    public void setImgList(ArrayList<Img> imgList) {
         this.imgList = imgList;
     }
-
 }

@@ -1,7 +1,6 @@
 package com.mengxin.img.utils;
+import com.alibaba.fastjson.JSONException;
 import com.mengxin.img.R;
-
-import com.google.gson.JsonSyntaxException;
 
 import java.net.ConnectException;
 import java.net.SocketException;
@@ -38,7 +37,7 @@ public class RxSchedulers {
             ToastUtils.shortToast(ResUtils.getString(R.string.network_connected_exception));
         } else if(e instanceof SocketTimeoutException) {
             ToastUtils.shortToast(ResUtils.getString(R.string.network_socket_time_out));
-        } else if(e instanceof JsonSyntaxException) {
+        } else if(e instanceof JSONException) {
             ToastUtils.shortToast(ResUtils.getString(R.string.network_json_syntax_exception));
         } else if(e instanceof UnknownHostException) {
             ToastUtils.shortToast(ResUtils.getString(R.string.network_unknown_host));

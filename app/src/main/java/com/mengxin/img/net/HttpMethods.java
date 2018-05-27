@@ -1,9 +1,9 @@
 package com.mengxin.img.net;
 
 import com.mengxin.img.ImgInit;
+import com.mengxin.img.data.dto.Author;
 import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.utils.RxSchedulers;
-import com.mengxin.img.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -51,10 +51,16 @@ public class HttpMethods {
         return sinalInstance.instance;
     }
 
-    public void fetchIllImg(Observer<ArrayList<Img>> observer, int num){
-
+    public void fetchIllImg(Observer<ArrayList<Img>> observer,int num){
          imgApiService.fetchIllImg(num)
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }
+
+    public void getAuthorDetail(Observer<Author> observer,long id){
+        imgApiService.getAuthorDetail(id)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
 }

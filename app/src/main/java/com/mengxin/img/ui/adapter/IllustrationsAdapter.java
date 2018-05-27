@@ -51,7 +51,7 @@ public class IllustrationsAdapter extends RecyclerView.Adapter<IllustrationsAdap
         return imgs.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+     class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img_content;
 

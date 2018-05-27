@@ -11,7 +11,8 @@ def retrofitVersion = "2.3.0"
 def glideVersion = "4.6.1"
 def timberVersion = "4.6.1"
 def fastJsonVersion = "1.2.47"
-
+def fastJsonConverter = "2.1.0"
+def roundedimageview = "2.2.1"
 
 project.ext {
     depend_android = [
@@ -38,13 +39,14 @@ project.ext {
             "okhttp"            : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
             "okhttp-interceptor": "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
             "retrofit"          : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-            "converter-gson"    : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             "rxjava2-adapter"   : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             "glide"             : "com.github.bumptech.glide:glide:${glideVersion}",
             "glide-compiler"    : "com.github.bumptech.glide:compiler:${glideVersion}",
 
             "timber"            : "com.jakewharton.timber:timber:${timberVersion}",
             "fastJson"          : "com.alibaba:fastjson:${fastJsonVersion}",
-            "fastJsonConverter" : "org.ligboy.retrofit2:converter-fastjson-android:2.1.0"
+            "fastJsonConverter" : "org.ligboy.retrofit2:converter-fastjson-android:${fastJsonConverter}",
+            "roundedimageview"  : "com.makeramen:roundedimageview:${roundedimageview}"
+
     ]
 }
