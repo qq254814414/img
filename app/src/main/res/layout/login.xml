@@ -1,9 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            app:titleTextColor="@color/black"
+            >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="登录"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/btn_forgetpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/colorPrimaryDark"
+                android:text="忘记密码"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+
     <TextView
-        android:text="这是login界面321"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:id="@+id/title_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="IMG"
+        android:textStyle="bold"
+        android:textColor="#5A78EA"
+        android:textSize="50dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/login_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_img"
+        app:layout_constraintVertical_bias="0.20"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/fir_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d0d0d0"
+            />
+
+       <EditText
+            android:id="@+id/login_id"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:drawableLeft="@mipmap/account3"
+            android:drawablePadding="20dp"
+            android:hint="用户名"
+            android:paddingLeft="15dp"
+            android:theme="@style/MyEditText"
+            app:layout_constraintTop_toBottomOf="@id/fir_view" />
+        <View
+            android:id="@+id/sec_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d0d0d0"
+            />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:paddingLeft="15dp"
+            android:drawablePadding="20dp"
+            android:hint="密码"
+            android:drawableLeft="@mipmap/password"
+            android:theme="@style/MyEditText"
+
+            />
+        <View
+            android:id="@+id/thi_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d0d0d0"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.55"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="注册"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_danger_rounded"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="登录"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_danger_rounded"
+            android:layout_weight="1"
+            android:layout_marginRight="30dp"
+            />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

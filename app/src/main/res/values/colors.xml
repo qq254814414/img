@@ -10,4 +10,13 @@
     <color name="heavy_divider">#EEEEEE</color>
     <color name="purple">#C89EC4</color>
     <color name="green">#67D5B5</color>
+
+
+    <!-- button的边框颜色 -->
+    <color name="bbutton_danger_pressed">#ffd2322d</color>
+    <color name="bbutton_danger_edge">#46a3ff</color>
+    <color name="bbutton_danger_disabled">#a5d9534f</color>
+    <color name="bbutton_danger_disabled_edge">#a5d43f3a</color>
+    <color name="bbutton_danger">#66b3ff</color>
+    <color name="text_font_white">#FFFFFF</color>
 </resources>

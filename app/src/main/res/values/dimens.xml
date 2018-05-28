@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_height">240dp</dimen>
     <dimen name="design_navigation_separator_vertical_padding">0dp</dimen>
+
+    <!--  登录button的边框角-->
+    <dimen name="bbuton_rounded_corner_radius">5dp</dimen>
 </resources>

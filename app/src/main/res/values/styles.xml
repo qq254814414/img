@@ -42,5 +42,10 @@
 
     <style name="ThemeOverlay"></style>
 
+    <!--设置底线的颜色-->
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#CCCCCC</item>
+        <item name="colorControlActivated">@color/black</item>
+    </style>
 
 </resources>
