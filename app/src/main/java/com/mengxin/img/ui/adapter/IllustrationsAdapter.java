@@ -69,7 +69,8 @@ public class IllustrationsAdapter extends RecyclerView.Adapter<IllustrationsAdap
             //图片点击事件
             img_content.setOnClickListener(view -> {
                 Intent intent = new Intent(mContext, PictureDetailActivity.class);
-//                intent.putExtra("pic_url", data.getSrc());
+                intent.putExtra("img_id", data.getId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 mContext.startActivity(intent);
             });
         }

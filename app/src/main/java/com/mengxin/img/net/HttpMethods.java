@@ -18,7 +18,7 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://10.7.86.85:8080/";
+    private static final String BASE_URL = "http://192.168.0.104:8080/";
     private Retrofit retrofit;
     private ImgApiService imgApiService;
 
@@ -59,6 +59,12 @@ public class HttpMethods {
 
     public void getAuthorDetail(Observer<Author> observer,long id){
         imgApiService.getAuthorDetail(id)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void getImgDetail(Observer<Img> observer,long id){
+        imgApiService.getImgDetail(id)
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }

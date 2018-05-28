@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         mFgManager.beginTransaction().replace(R.id.cly_main_content,
                 IllustrationsFragment.newInstance(), ImgConstant.FG_LITTLE_SISTER).commit();
-        toolbar.setTitle(ResUtils.getString(R.string.menu_see_little_sister));
+        toolbar.setTitle(ResUtils.getString(R.string.menu_see_ill_img));
         String version = PackageUtils.packageName();
         if(version != null) {
             String msg = String.format(ResUtils.getString(R.string.menu_Img_version), version);

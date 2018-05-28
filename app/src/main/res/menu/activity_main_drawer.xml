@@ -8,7 +8,7 @@
             <item
                 android:id="@+id/nav_see_little_sister"
                 android:icon="@drawable/ic_menu_sister"
-                android:title="@string/menu_see_little_sister" />
+                android:title="@string/menu_see_ill_img" />
             <item
                 android:id="@+id/nav_see_news"
                 android:icon="@drawable/ic_menu_news"

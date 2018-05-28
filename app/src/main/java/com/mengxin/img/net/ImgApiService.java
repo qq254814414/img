@@ -18,4 +18,8 @@ public interface ImgApiService {
     Observable<Author> getAuthorDetail(
             @Path("id") long id
     );
+    @GET("图片/getById/{id}")
+    Observable<Img> getImgDetail(
+            @Path("id") long id
+    );
 }
