@@ -1,5 +1,7 @@
 package com.mengxin.img.ui.fragment;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,11 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.mengxin.img.R;
 import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
+import com.mengxin.img.ui.activity.LoginActivity;
+import com.mengxin.img.ui.activity.MainActivity;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -53,6 +61,14 @@ public class ImgDetailFragment extends Fragment{
         mSubscriptions = new CompositeDisposable();
         initView(view);
 
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(),MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+
+
+
         return view;
     }
 
@@ -83,6 +99,28 @@ public class ImgDetailFragment extends Fragment{
                         .load(img.getSrc())
                         .apply(new RequestOptions()
                                 .centerCrop())
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                if (imgView.getScaleType() != ImageView.ScaleType.FIT_XY) {
+                                    imgView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                }
+                                ViewGroup.LayoutParams params = imgView.getLayoutParams();
+                                int viewWidth = imgView.getWidth();
+                                float scale = (float) viewWidth / (float) resource.getIntrinsicWidth();
+                                int viewHeight = Math.round(resource.getIntrinsicHeight() * scale);
+                                params.height = viewHeight;
+
+                                imgView.setLayoutParams(params);
+
+                                return false;
+                            }
+                        })
                         .into(imgView);
                 Glide.with(getActivity())
                         .load(img.getAuthor().getHeadImg())

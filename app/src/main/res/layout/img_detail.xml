@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/iv_detail_img"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/white"/>
 
     <RelativeLayout
@@ -20,8 +20,8 @@
         android:padding="10dp">
         <Button
             android:id="@+id/bt_img_detail_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:background="@drawable/back"/>
         <Button
