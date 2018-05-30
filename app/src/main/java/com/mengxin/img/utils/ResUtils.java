@@ -13,4 +13,8 @@ public class ResUtils {
     public static String getString(int strId) {
         return ImgApp.getContext().getResources().getString(strId);
     }
+    /* 获取颜色 */
+    public static int getColor(int colId){
+        return ImgApp.getContext().getResources().getColor(colId);
+    }
 }

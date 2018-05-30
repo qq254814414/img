@@ -17,13 +17,23 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mengxin.img.ImgConstant;
 import com.mengxin.img.R;
+import com.mengxin.img.net.HttpMethods;
 import com.mengxin.img.ui.fragment.IllustrationsFragment;
+import com.mengxin.img.utils.NetworkUtils;
 import com.mengxin.img.utils.PackageUtils;
 import com.mengxin.img.utils.ResUtils;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 public class MainActivity extends AppCompatActivity {
+
+    private CompositeDisposable mSubscriptions;
 
     private Toolbar toolbar;
     private DrawerLayout drawer_layout;
@@ -34,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView headerImg;
     private Context mcontext;
 
+    private Long userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         mcontext = this;
         initView();
         initData();
+        mSubscriptions = new CompositeDisposable();
+        userId = NetworkUtils.isLogin(this);
     }
 
     private void initView() {
@@ -64,6 +78,36 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        /** 用户登陆后显示用户头像 **/
+        if ( userId != 0){
+            HttpMethods.getInstance().getHeadImg(new Observer<String>() {
+                private Disposable d;
+                @Override
+                public void onSubscribe(Disposable d) {
+                    this.d = d;
+                    mSubscriptions.add(d);
+                }
+
+                @Override
+                public void onNext(String s) {
+                    Glide.with(mcontext)
+                            .load(s)
+                            .apply(new RequestOptions()
+                                    .centerCrop())
+                            .into(headerImg);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            },userId);
+        }
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.drawer_open, R.string.drawer_close);
@@ -138,5 +182,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSubscriptions.clear();
     }
 }

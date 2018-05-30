@@ -1,10 +1,12 @@
 package com.mengxin.img.ui.fragment;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -25,6 +28,11 @@ import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
 import com.mengxin.img.ui.activity.LoginActivity;
 import com.mengxin.img.ui.activity.MainActivity;
+import com.mengxin.img.utils.NetworkUtils;
+import com.mengxin.img.utils.ResUtils;
+import com.mengxin.img.utils.ToastUtils;
+
+import org.w3c.dom.Attr;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -44,7 +52,12 @@ public class ImgDetailFragment extends Fragment{
     private TextView publishTime;
     private TextView clickNum;
     private TextView likeNum;
+    private FloatingActionButton fab_like;
+    private Boolean like = false;
 
+    private JSONObject object = new JSONObject();
+
+    private Long authorId;
     private Long id;
 
     public static ImgDetailFragment newInstance(){
@@ -56,6 +69,7 @@ public class ImgDetailFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.img_detail,container,false);
 
+        authorId = NetworkUtils.isLogin(getActivity());
         id = getArguments().getLong("img_id");
 
         mSubscriptions = new CompositeDisposable();
@@ -67,7 +81,33 @@ public class ImgDetailFragment extends Fragment{
             startActivity(intent);
         });
 
+        if (authorId != 0){
+            object.put("authorId",authorId);
+            object.put("imgId",id);
+            HttpMethods.getInstance().isLikeImg(new Observer<Boolean>() {
+                private Disposable d;
+                @Override
+                public void onSubscribe(Disposable d) {
+                    this.d = d;
+                    mSubscriptions.add(d);
+                }
 
+                @Override
+                public void onNext(Boolean aBoolean) {
+                    like = aBoolean;
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    d.dispose();
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            },object);
+        }
 
         return view;
     }
@@ -76,6 +116,72 @@ public class ImgDetailFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fetchImgDetail(id);
+        if (like){
+            ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.color.colorAccent));
+            fab_like.setBackgroundTintList(colorStateList);
+        } else {
+            ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.attr.colorControlHighlight));
+            fab_like.setBackgroundTintList(colorStateList);
+        }
+        fab_like.setOnClickListener(v -> {
+            if (authorId == 0){
+                ToastUtils.shortToast("还没有登录!");
+                return;
+            }
+            if (like){
+                HttpMethods.getInstance().unLikeImg(new Observer<Boolean>() {
+                    private Disposable d;
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        this.d = d;
+                        mSubscriptions.add(d);
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        like = false;
+                        ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.attr.colorControlHighlight));
+                        fab_like.setBackgroundTintList(colorStateList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        d.dispose();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                },object);
+            } else {
+                HttpMethods.getInstance().likeImg(new Observer<Boolean>() {
+                    private Disposable d;
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        this.d = d;
+                        mSubscriptions.add(d);
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        like = true;
+                        ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.color.colorAccent));
+                        fab_like.setBackgroundTintList(colorStateList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                },object);
+            }
+        });
     }
 
     @Override
@@ -159,5 +265,6 @@ public class ImgDetailFragment extends Fragment{
         publishTime = view.findViewById(R.id.tv_publishTime);
         clickNum = view.findViewById(R.id.tv_img_click_num);
         likeNum = view.findViewById(R.id.tv_img_like_num);
+        fab_like = view.findViewById(R.id.fab_like);
     }
 }

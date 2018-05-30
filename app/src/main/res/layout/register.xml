@@ -59,10 +59,10 @@
         android:orientation="vertical">
 
         <View
-            android:id="@+id/fir_view"
+            android:id="@+id/first_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#d0d0d0"
+            android:background="@color/register_ok"
             />
 
         <EditText
@@ -77,13 +77,14 @@
             android:theme="@style/MyEditText"
             app:layout_constraintTop_toBottomOf="@id/fir_view" />
         <View
-            android:id="@+id/sec_view"
+            android:id="@+id/second_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#d0d0d0"
+            android:background="@color/register_ok"
             />
 
         <View
+            android:id="@+id/thr_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#d0d0d0"
@@ -95,9 +96,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
-            android:paddingLeft="15dp"
             android:drawablePadding="20dp"
             android:hint="密码"
+            android:paddingLeft="15dp"
             android:theme="@style/MyEditText"
 
             />
@@ -119,6 +120,7 @@
             android:theme="@style/MyEditText"
             />
         <View
+            android:id="@+id/for_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#d0d0d0"
@@ -126,6 +128,7 @@
 
 
         <View
+            android:id="@+id/fiv_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#d0d0d0"
@@ -142,6 +145,7 @@
             android:theme="@style/MyEditText"
             />
         <View
+            android:id="@+id/six_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#d0d0d0"
