@@ -43,19 +43,20 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager mFgManager;
     private ImageView headerImg;
     private Context mcontext;
-
-    private Long userId;
+    private Long authorId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mSubscriptions = new CompositeDisposable();
         mFgManager = getSupportFragmentManager();
         mcontext = this;
+        authorId = NetworkUtils.isLogin(this);
         initView();
         initData();
-        mSubscriptions = new CompositeDisposable();
-        userId = NetworkUtils.isLogin(this);
+
+
     }
 
     private void initView() {
@@ -69,17 +70,42 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         nav_view.setItemIconTintList(null);
-//        nav_view.setNavigationItemSelectedListener(this);
+        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+//                    case R.id.nav_see_little_sister:
+//                        if (mFgManager.findFragmentByTag(DryConstant.FG_LITTLE_SISTER) == null) {
+//                            mFgManager.beginTransaction().replace(R.id.cly_main_content,
+//                                    LittleSisterFragment.newInstance(), DryConstant.FG_LITTLE_SISTER).commit();
+//                            toolbar.setTitle(ResUtils.getString(R.string.menu_see_little_sister));
+//                        }
+//                        break;
+//                    case R.id.nav_else_setting:
+//                        startActivity(new Intent(this, SettingActivity.class));
+//                        break;
+                }
+                drawer_layout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
         headerImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mcontext,LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                if (authorId == 0){
+                    Intent intent = new Intent(mcontext,LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mcontext,AuthorActivity.class);
+                    intent.putExtra("authorId",authorId);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
         });
         /** 用户登陆后显示用户头像 **/
-        if ( userId != 0){
+        if ( authorId != 0){
             HttpMethods.getInstance().getHeadImg(new Observer<String>() {
                 private Disposable d;
                 @Override
@@ -106,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onComplete() {
 
                 }
-            },userId);
+            },authorId);
         }
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -114,55 +140,6 @@ public class MainActivity extends AppCompatActivity {
         drawer_layout.addDrawerListener(toggle);
         toggle.syncState();
     }
-
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.nav_see_little_sister:
-//                if (mFgManager.findFragmentByTag(DryConstant.FG_LITTLE_SISTER) == null) {
-//                    mFgManager.beginTransaction().replace(R.id.cly_main_content,
-//                            LittleSisterFragment.newInstance(), DryConstant.FG_LITTLE_SISTER).commit();
-//                    toolbar.setTitle(ResUtils.getString(R.string.menu_see_little_sister));
-//                }
-//                break;
-//            case R.id.nav_see_news:
-//                if (mFgManager.findFragmentByTag(DryConstant.FG_NEWS) == null) {
-//                    mFgManager.beginTransaction().replace(R.id.cly_main_content,
-//                            NewsFragment.newInstance(), DryConstant.FG_NEWS).commit();
-//                    toolbar.setTitle(ResUtils.getString(R.string.menu_see_news));
-//                }
-//                break;
-//            case R.id.nav_use_check_weather:
-//                if (mFgManager.findFragmentByTag(DryConstant.FG_WEATHER) == null) {
-//                    mFgManager.beginTransaction().replace(R.id.cly_main_content,
-//                            WeatherFragment.newInstance(), DryConstant.FG_WEATHER).commit();
-//                    toolbar.setTitle(ResUtils.getString(R.string.menu_use_check_weather));
-//                }
-//                break;
-//            case R.id.nav_use_check_subway:
-//                if (mFgManager.findFragmentByTag(DryConstant.FG_SUBWAY) == null) {
-//                    mFgManager.beginTransaction().replace(R.id.cly_main_content,
-//                            SubwayFragment.newInstance(), DryConstant.FG_SUBWAY).commit();
-//                    toolbar.setTitle(ResUtils.getString(R.string.menu_use_check_subway));
-//                }
-//                break;
-//            case R.id.nav_use_tools:
-//                if (mFgManager.findFragmentByTag(DryConstant.FG_TOOLS) == null) {
-//                    mFgManager.beginTransaction().replace(R.id.cly_main_content,
-//                            ToolsFragment.newInstance(), DryConstant.FG_TOOLS).commit();
-//                    toolbar.setTitle(ResUtils.getString(R.string.menu_use_tools));
-//                }
-//                break;
-//            case R.id.nav_else_setting:
-//                startActivity(new Intent(this, SettingActivity.class));
-//                break;
-//            case R.id.nav_else_about:
-//                startActivity(new Intent(this, AboutActivity.class));
-//                break;
-//        }
-//        drawer_layout.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
 
     private void initData() {
         mFgManager.beginTransaction().replace(R.id.cly_main_content,

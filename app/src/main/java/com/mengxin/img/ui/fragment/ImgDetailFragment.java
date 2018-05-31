@@ -120,7 +120,7 @@ public class ImgDetailFragment extends Fragment{
             ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.color.colorAccent));
             fab_like.setBackgroundTintList(colorStateList);
         } else {
-            ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.attr.colorControlHighlight));
+            ColorStateList colorStateList = ColorStateList.valueOf(R.attr.colorControlHighlight);
             fab_like.setBackgroundTintList(colorStateList);
         }
         fab_like.setOnClickListener(v -> {
@@ -140,7 +140,7 @@ public class ImgDetailFragment extends Fragment{
                     @Override
                     public void onNext(Boolean aBoolean) {
                         like = false;
-                        ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.attr.colorControlHighlight));
+                        ColorStateList colorStateList = ColorStateList.valueOf(R.attr.colorControlHighlight);
                         fab_like.setBackgroundTintList(colorStateList);
                     }
 

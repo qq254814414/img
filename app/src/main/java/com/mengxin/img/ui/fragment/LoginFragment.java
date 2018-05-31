@@ -62,16 +62,18 @@ public class LoginFragment extends Fragment{
         });
 
         login.setOnClickListener(v -> {
-
-            Author author = new Author();
-            author.setName(authorName.getText().toString());
-            author.setPassWord(MD5.encryption(passWrod.getText().toString(),author.getName()));
-            if (author.getName().isEmpty()){
+            String name = authorName.getText().toString();
+            String pass = passWrod.getText().toString();
+            if (name.isEmpty()){
                 ToastUtils.shortToast("忘了输入用户名了");
             }
-            if(author.getPassWord().toString().isEmpty()){
+            if(pass.isEmpty()){
                 ToastUtils.shortToast("忘了输入密码了");
             }
+
+            Author author = new Author();
+            author.setName(name);
+            author.setPassWord(MD5.encryption(pass,name));
 
             HttpMethods.getInstance().loginByPassWord(new Observer<String>() {
                 private Disposable d;

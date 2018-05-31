@@ -33,6 +33,8 @@
 
         <activity android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.AuthorActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.PictureDetailActivity"
             android:screenOrientation="portrait"

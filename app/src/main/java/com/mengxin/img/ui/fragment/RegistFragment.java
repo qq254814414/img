@@ -19,13 +19,6 @@ import com.mengxin.img.utils.MD5;
 import com.mengxin.img.utils.ResUtils;
 import com.mengxin.img.utils.ToastUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -225,9 +218,11 @@ public class RegistFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 if (nameIsOk && passWordIsOk && phoneIsOk){
+                    String authorName = name.getText().toString();
+                    String pass = passWord.getText().toString();
                     Author author = new Author();
-                    author.setName(name.getText().toString());
-                    author.setPassWord(MD5.encryption(passWord.getText().toString(),author.getName()));
+                    author.setName(authorName);
+                    author.setPassWord(MD5.encryption(pass,authorName));
                     author.setPhoneNumber(phoneNumber.getText().toString());
                     String code = vCode.getText().toString();
                     JSONObject object = new JSONObject();

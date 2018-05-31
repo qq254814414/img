@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -17,13 +18,14 @@ public class AuthorImgAdapter extends BaseAdapter{
     private Context context;
     private ArrayList<Img> imgs;
 
-    public AuthorImgAdapter(Context context) {
+    public AuthorImgAdapter(Context context,ArrayList<Img> imgs) {
         this.context = context;
+        this.imgs = imgs;
     }
 
-    public void addImgs(ArrayList<Img> imgs){
+    public void addImgs(ArrayList<Img> data){
         imgs.clear();
-        imgs.addAll(imgs);
+        imgs.addAll(data);
         notifyDataSetChanged();
     }
 
@@ -44,30 +46,23 @@ public class AuthorImgAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
         if (convertView == null){
             convertView = View.inflate(context, R.layout.author_item_img,null);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
         }
-
         Img img = imgs.get(position);
+        ImageView imageView = convertView.findViewById(R.id.author_img_content);
         Glide.with(context)
                 .load(img.getSrc())
                 .apply(new RequestOptions()
                         .centerCrop())
-                .into(viewHolder.item_img);
+                .into(imageView);
+        /**
+         * 图片点击事件
+         */
+        imageView.setOnClickListener(v -> {
 
-        return null;
-    }
-
-    class ViewHolder {
-        private ImageView item_img;
-        public ViewHolder(View convertView){
-            item_img = convertView.findViewById(R.id.author_img_content);
-        }
+        });
+        return convertView;
     }
 
 }

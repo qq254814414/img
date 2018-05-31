@@ -18,50 +18,26 @@
         android:layout_marginTop="80dp"
         android:layout_marginLeft="15dp"
         android:scaleType="fitCenter"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/meixu"
         app:riv_border_width="0dp"
         app:riv_oval="true" />
 
-    <TextView
-        android:layout_width="120dp"
-        android:layout_height="25dp"
-        android:layout_alignBottom="@+id/iv_bg_personal"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="21dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="right"
-        android:paddingRight="20dp"
-        android:text="2人来访"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:background="@drawable/shape"
-        android:id="@+id/tv_visitorNum_personal" />
-
-    <ImageView
-        android:id="@+id/iv_browse_personal"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_alignStart="@+id/tv_visitorNum_personal"
-        android:layout_alignTop="@+id/tv_visitorNum_personal"
-        android:layout_marginStart="15dp"
-        android:src="@drawable/browse" />
-
-    <ImageView
-        android:id="@+id/iv_comments_personal"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="13dp"
-        android:layout_marginTop="11dp"
-        android:layout_toStartOf="@+id/iv_settings_personal"
-        android:src="@drawable/comments" />
+    <Button
+        android:id="@+id/bt_author_back"
+        android:layout_margin="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/iv_bg_personal"
+        android:layout_alignTop="@+id/iv_bg_personal"
+        android:background="@drawable/back"/>
 
     <ImageView
         android:id="@+id/iv_settings_personal"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_alignEnd="@+id/tv_visitorNum_personal"
-        android:layout_alignTop="@+id/iv_comments_personal"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/iv_bg_personal"
+        android:layout_alignTop="@+id/iv_bg_personal"
+        android:layout_margin="20dp"
         android:src="@drawable/set" />
     <TextView
         android:id="@+id/tv_username_personal"

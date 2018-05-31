@@ -115,6 +115,7 @@
             android:paddingLeft="15dp"
             android:drawablePadding="20dp"
             android:hint="密码"
+            android:inputType="textPassword"
             android:drawableLeft="@mipmap/password"
             android:theme="@style/MyEditText"
 
