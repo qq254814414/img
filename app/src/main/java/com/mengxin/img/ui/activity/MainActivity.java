@@ -81,9 +81,11 @@ public class MainActivity extends AppCompatActivity {
 //                            toolbar.setTitle(ResUtils.getString(R.string.menu_see_little_sister));
 //                        }
 //                        break;
-//                    case R.id.nav_else_setting:
-//                        startActivity(new Intent(this, SettingActivity.class));
-//                        break;
+                    case R.id.nav_else_setting:
+                        Intent intent = new Intent(mcontext,SettingActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        break;
                 }
                 drawer_layout.closeDrawer(GravityCompat.START);
                 return true;
