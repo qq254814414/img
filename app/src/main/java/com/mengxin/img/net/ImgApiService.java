@@ -65,4 +65,10 @@ public interface ImgApiService {
     Observable<Boolean> isLikeImg(
             @Body JSONObject object
     );
+
+    @GET("图片/getAuthorImg/{id}/{num}")
+    Observable<ArrayList<Img>> getAuthorImg(
+            @Path("id") Long id,
+            @Path("num") int num
+    );
 }

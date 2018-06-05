@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class AuthorFragment extends Fragment{
 
     private CompositeDisposable mSubscriptions;
 
+    private FragmentManager manager;
+
     private Long authorId;
     private ImageView headImg;
     private ImageView bgImg;
@@ -39,6 +42,7 @@ public class AuthorFragment extends Fragment{
     private TextView introduction;
     private GridView imgList;
     private Button back;
+    private TextView viewAll;
 
     private AuthorImgAdapter adapter;
 
@@ -51,7 +55,7 @@ public class AuthorFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.author,container,false);
         mSubscriptions = new CompositeDisposable();
-
+        manager = getActivity().getSupportFragmentManager();
         initView(view);
 
         return view;
@@ -60,6 +64,13 @@ public class AuthorFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+
         adapter = new AuthorImgAdapter(getActivity(),new ArrayList<Img>());
         imgList.setAdapter(adapter);
 
@@ -101,12 +112,13 @@ public class AuthorFragment extends Fragment{
             }
         },authorId);
 
-        back.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+        viewAll.setOnClickListener(v -> {
+            AuthorImgListFragment fragment = AuthorImgListFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong("authorId",authorId);
+            fragment.setArguments(bundle);
+            manager.beginTransaction().replace(R.id.author_content_container,fragment).commit();
         });
-
     }
 
     @Override
@@ -122,44 +134,7 @@ public class AuthorFragment extends Fragment{
         introduction = view.findViewById(R.id.tv_signature_personal);
         imgList = view.findViewById(R.id.gv_imgList_personal);
         back = view.findViewById(R.id.bt_author_back);
-    }
-
-    private void fetchAuthor(long id){
-        HttpMethods.getInstance().getAuthorDetail(new Observer<Author>() {
-            private Disposable d;
-            @Override
-            public void onSubscribe(Disposable d) {
-                this.d = d;
-                mSubscriptions.add(d);
-            }
-
-            @Override
-            public void onNext(Author author) {
-                Glide.with(getActivity())
-                        .load(author.getHeadImg())
-                        .apply(new RequestOptions()
-                                .centerCrop())
-                        .into(headImg);
-                Glide.with(getActivity())
-                        .load(author.getBgImg())
-                        .apply(new RequestOptions()
-                                .centerCrop())
-                        .into(bgImg);
-                name.setText(author.getName());
-                introduction.setText(author.getIntroduction());
-                adapter.addImgs(author.getImgList());
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                d.dispose();
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        },id);
+        viewAll = view.findViewById(R.id.tv_view_all);
     }
 
 }

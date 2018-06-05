@@ -24,12 +24,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         Slidr.attach(this);
-        initData();
         initView();
-    }
-
-    private void initData() {
-
     }
 
     private void initView() {

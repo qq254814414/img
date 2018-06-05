@@ -191,7 +191,7 @@
         android:background="@color/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_contact_me" />
+        app:layout_constraintTop_toBottomOf="@id/quit" />
 
 
 

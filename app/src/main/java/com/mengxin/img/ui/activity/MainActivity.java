@@ -91,19 +91,16 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        headerImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (authorId == 0){
-                    Intent intent = new Intent(mcontext,LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(mcontext,AuthorActivity.class);
-                    intent.putExtra("authorId",authorId);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
+        headerImg.setOnClickListener(v -> {
+            if (authorId == 0){
+                Intent intent = new Intent(mcontext,LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(mcontext,AuthorActivity.class);
+                intent.putExtra("authorId",authorId);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         /** 用户登陆后显示用户头像 **/

@@ -19,22 +19,15 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://10.7.85.230:8080/";
-    private Retrofit retrofit;
+    private static final String BASE_URL = "http://10.7.85.229:8080/";
     private ImgApiService imgApiService;
 
     private HttpMethods() {
         /**
-         * 构造函数私有化
-         * 并在构造函数中进行retrofit的初始化
-         */
-//        OkHttpClient client=new OkHttpClient();
-//        client.newBuilder().connectTimeout(TIME_OUT, TimeUnit.SECONDS);
-        /**
          * 由于retrofit底层的实现是通过okhttp实现的，所以可以通过okHttp来设置一些连接参数
          * 如超时等
          */
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(ImgInit.mOkHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -114,6 +107,12 @@ public class HttpMethods {
 
     public void isLikeImg(Observer<Boolean> observer,JSONObject object){
         imgApiService.isLikeImg(object)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void getAuthorImg(Observer<ArrayList<Img>> observer,Long id,int num){
+        imgApiService.getAuthorImg(id,num)
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }

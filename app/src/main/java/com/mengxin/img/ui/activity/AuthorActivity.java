@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.mengxin.img.R;
 import com.mengxin.img.ui.fragment.AuthorFragment;
+import com.mengxin.img.utils.ToastUtils;
 
 public class AuthorActivity extends AppCompatActivity{
 
@@ -33,9 +34,13 @@ public class AuthorActivity extends AppCompatActivity{
 
     private void changeFragment(Fragment fragment){
         if (currentFragment != fragment){
-            Bundle bundle = new Bundle();
-            bundle.putLong("authorId",id);
-            fragment.setArguments(bundle);
+            switch (fragment.getClass().getSimpleName()){
+                case "AuthorFragment" :
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("authorId",id);
+                    fragment.setArguments(bundle);
+                    break;
+            }
             manager.beginTransaction().replace(R.id.author_content_container,fragment).commit();
             currentFragment = fragment;
         }

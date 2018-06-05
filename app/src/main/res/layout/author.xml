@@ -203,6 +203,14 @@
         android:layout_below="@id/view_line"
         android:layout_margin="10dp"
         android:verticalSpacing="20dp">
-
     </GridView>
+    <TextView
+        android:layout_marginRight="20dp"
+        android:id="@+id/tv_view_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="查看所有"
+        android:layout_alignTop="@+id/gv_imgList_personal"
+        android:layout_alignRight="@+id/gv_imgList_personal"/>
 </RelativeLayout>

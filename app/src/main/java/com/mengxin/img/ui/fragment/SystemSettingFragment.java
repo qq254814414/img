@@ -31,7 +31,7 @@ public class SystemSettingFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_system_setting,container,false);
+        View view = inflater.inflate(R.layout.system_setting,container,false);
         initView(view);
         return view;
     }

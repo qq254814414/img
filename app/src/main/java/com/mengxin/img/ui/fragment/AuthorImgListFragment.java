@@ -12,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.mengxin.img.net.HttpMethods;
 import com.mengxin.img.ui.adapter.IllustrationsAdapter;
 import com.mengxin.img.utils.RxSchedulers;
 import com.mengxin.img.utils.ToastUtils;
+import com.r0adkll.slidr.Slidr;
 
 import java.util.ArrayList;
 
@@ -33,12 +35,11 @@ import io.reactivex.disposables.Disposable;
 /**
  * 图片显示List
  */
-public class ImgListFragment extends Fragment{
-    private static final String TAG = "GankMZFragment";
+public class AuthorImgListFragment extends Fragment{
 
     private Long authorId;
-    private String page;
 
+    private Toolbar toolbar;
     private SwipeRefreshLayout srl_refresh;
     private FloatingActionButton fab_top;
     private RecyclerView rec_mz;
@@ -48,20 +49,21 @@ public class ImgListFragment extends Fragment{
     private ArrayList<Img> mData;
     private final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
 
-    public static ImgListFragment newInstance(){
-        return new ImgListFragment();
+    public static AuthorImgListFragment newInstance(){
+        return new AuthorImgListFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_img_content, container, false);
+        View view = inflater.inflate(R.layout.author_img_list, container, false);
+        Slidr.attach(getActivity());
         srl_refresh = view.findViewById(R.id.srl_refresh);
         rec_mz = view.findViewById(R.id.rec_mz);
         fab_top = view.findViewById(R.id.fab_top);
         srl_refresh.setOnRefreshListener(() -> {
             CurPage = 0;
-            fetchImg(true);
+            fetchAuthorImg(true);
         });
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         rec_mz.setLayoutManager(layoutManager);
@@ -73,7 +75,7 @@ public class ImgListFragment extends Fragment{
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {//加载更多
                     if (layoutManager.getItemCount() - recyclerView.getChildCount() <= layoutManager.findFirstVisibleItemPosition()) {
                         ++CurPage;
-                        fetchImg(false);
+                        fetchAuthorImg(false);
                     }
                 }
                 if (layoutManager.findFirstVisibleItemPosition() != 0) {
@@ -93,6 +95,8 @@ public class ImgListFragment extends Fragment{
                 fabOutAnim();
             }
         });
+        toolbar = view.findViewById(R.id.toolbar);
+
         return view;
     }
 
@@ -104,23 +108,24 @@ public class ImgListFragment extends Fragment{
         mAdapter = new IllustrationsAdapter(getActivity(), mData);
         rec_mz.setAdapter(mAdapter);
         srl_refresh.setRefreshing(true);
-        fetchImg(true);
+        Bundle bundle = getArguments();
+        authorId = bundle.getLong("authorId",0);
+        fetchAuthorImg(true);
     }
-
-    /* 拉取插画数据 */
-    private void fetchImg(boolean isRefresh) {
-        HttpMethods.getInstance().fetchIllImg(new Observer<ArrayList<Img>>() {
+    /* 拉取作者所有作品 */
+    private void fetchAuthorImg(boolean isRefresh){
+        HttpMethods.getInstance().getAuthorImg(new Observer<ArrayList<Img>>() {
             private Disposable d;
             @Override
             public void onSubscribe(Disposable d) {
                 this.d = d;
-                mSubscriptions.add(this.d);
-                srl_refresh.setRefreshing(true);
+                mSubscriptions.add(d);
             }
 
             @Override
             public void onNext(ArrayList<Img> imgs) {
                 if (imgs.isEmpty()){
+                    d.dispose();
                     ToastUtils.shortToast("没有更多图片了");
                     srl_refresh.setRefreshing(false);
                 }
@@ -132,17 +137,15 @@ public class ImgListFragment extends Fragment{
             }
 
             @Override
-            public void onError(Throwable t) {
-                ToastUtils.shortToast("Error");
+            public void onError(Throwable e) {
                 d.dispose();
-                RxSchedulers.processRequestException(t);
             }
 
             @Override
             public void onComplete() {
                 srl_refresh.setRefreshing(false);
             }
-        },CurPage*20);
+        },authorId,CurPage*20);
     }
     @Override
     public void onDestroy() {
