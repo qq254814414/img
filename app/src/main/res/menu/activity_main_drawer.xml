@@ -16,20 +16,16 @@
         </menu>
     </item>
 
-    <item android:title="@string/menu_use" >
+    <item android:title="社交" >
         <menu>
             <item
-                android:id="@+id/nav_use_check_weather"
+                android:id="@+id/nav_focus"
                 android:icon="@drawable/ic_menu_weather"
-                android:title="@string/menu_use_check_weather" />
+                android:title="关注" />
             <item
-                android:id="@+id/nav_use_check_subway"
+                android:id="@+id/nav_fans"
                 android:icon="@drawable/ic_menu_subway"
-                android:title="@string/menu_use_check_subway" />
-            <item
-                android:id="@+id/nav_use_tools"
-                android:icon="@drawable/ic_menu_tools"
-                android:title="@string/menu_use_tools" />
+                android:title="粉丝" />
         </menu>
     </item>
 

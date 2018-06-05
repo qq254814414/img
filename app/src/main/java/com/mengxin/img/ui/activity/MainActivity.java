@@ -70,26 +70,29 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         nav_view.setItemIconTintList(null);
-        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-//                    case R.id.nav_see_little_sister:
-//                        if (mFgManager.findFragmentByTag(DryConstant.FG_LITTLE_SISTER) == null) {
-//                            mFgManager.beginTransaction().replace(R.id.cly_main_content,
-//                                    LittleSisterFragment.newInstance(), DryConstant.FG_LITTLE_SISTER).commit();
-//                            toolbar.setTitle(ResUtils.getString(R.string.menu_see_little_sister));
-//                        }
-//                        break;
-                    case R.id.nav_else_setting:
-                        Intent intent = new Intent(mcontext,SettingActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        break;
-                }
-                drawer_layout.closeDrawer(GravityCompat.START);
-                return true;
+        nav_view.setNavigationItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()) {
+//                case R.id.nav_see_little_sister:
+//                    if (mFgManager.findFragmentByTag(DryConstant.FG_LITTLE_SISTER) == null) {
+//                        mFgManager.beginTransaction().replace(R.id.cly_main_content,
+//                                LittleSisterFragment.newInstance(), DryConstant.FG_LITTLE_SISTER).commit();
+//                        toolbar.setTitle(ResUtils.getString(R.string.menu_see_little_sister));
+//                    }
+//                    break;
+                case R.id.nav_else_setting:
+                    intent = new Intent(mcontext,SettingActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_focus:
+                    intent = new Intent(mcontext,FocusActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    break;
             }
+            drawer_layout.closeDrawer(GravityCompat.START);
+            return true;
         });
         headerImg.setOnClickListener(v -> {
             if (authorId == 0){
