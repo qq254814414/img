@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.mengxin.img.R;
 import com.mengxin.img.ui.fragment.FocusFragment;
-import com.mengxin.img.ui.fragment.SystemSettingFragment;
 import com.r0adkll.slidr.Slidr;
 
 public class FocusActivity extends AppCompatActivity{
