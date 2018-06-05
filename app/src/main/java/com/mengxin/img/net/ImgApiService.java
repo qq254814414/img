@@ -68,7 +68,12 @@ public interface ImgApiService {
 
     @GET("图片/getAuthorImg/{id}/{num}")
     Observable<ArrayList<Img>> getAuthorImg(
-            @Path("id") Long id,
+            @Path("id") long id,
             @Path("num") int num
+    );
+
+    @GET("author/getFocusList/{id}")
+    Observable<ArrayList<Author>> getFocusList(
+            @Path("id") long id
     );
 }

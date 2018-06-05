@@ -111,8 +111,14 @@ public class HttpMethods {
                 .subscribe(observer);
     }
 
-    public void getAuthorImg(Observer<ArrayList<Img>> observer,Long id,int num){
+    public void getAuthorImg(Observer<ArrayList<Img>> observer,long id,int num){
         imgApiService.getAuthorImg(id,num)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void getFocusList(Observer<ArrayList<Author>> observer,long id){
+        imgApiService.getFocusList(id)
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }
