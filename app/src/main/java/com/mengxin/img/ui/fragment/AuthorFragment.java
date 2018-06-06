@@ -42,6 +42,8 @@ public class AuthorFragment extends Fragment{
     private TextView introduction;
     private GridView imgList;
     private Button back;
+    private TextView fansNum;
+    private TextView focusNum;
     private TextView viewAll;
 
     private AuthorImgAdapter adapter;
@@ -55,7 +57,6 @@ public class AuthorFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.author,container,false);
 
-
         mSubscriptions = new CompositeDisposable();
         manager = getActivity().getSupportFragmentManager();
         initView(view);
@@ -66,12 +67,6 @@ public class AuthorFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        back.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
 
         adapter = new AuthorImgAdapter(getActivity(),new ArrayList<Img>());
         imgList.setAdapter(adapter);
@@ -113,14 +108,54 @@ public class AuthorFragment extends Fragment{
 
             }
         },authorId);
+        HttpMethods.getInstance().getFansNum(new Observer<Integer>() {
+            private Disposable d;
+            @Override
+            public void onSubscribe(Disposable d) {
+                this.d = d;
+                mSubscriptions.add(d);
+            }
 
-        viewAll.setOnClickListener(v -> {
-            AuthorImgListFragment fragment = AuthorImgListFragment.newInstance();
-            Bundle bundle = new Bundle();
-            bundle.putLong("authorId",authorId);
-            fragment.setArguments(bundle);
-            manager.beginTransaction().replace(R.id.author_content_container,fragment).commit();
-        });
+            @Override
+            public void onNext(Integer integer) {
+                fansNum.setText(integer.toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                d.dispose();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        },authorId);
+        HttpMethods.getInstance().getFocusNum(new Observer<Integer>() {
+            private Disposable d;
+            @Override
+            public void onSubscribe(Disposable d) {
+                this.d = d;
+                mSubscriptions.add(d);
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                focusNum.setText(integer.toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                d.dispose();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        },authorId);
+
+        clickListener();
     }
 
     @Override
@@ -136,7 +171,24 @@ public class AuthorFragment extends Fragment{
         introduction = view.findViewById(R.id.tv_signature_personal);
         imgList = view.findViewById(R.id.gv_imgList_personal);
         back = view.findViewById(R.id.bt_author_back);
+        fansNum = view.findViewById(R.id.tv_fansNum_personal);
+        focusNum = view.findViewById(R.id.tv_attentionNum_personal);
         viewAll = view.findViewById(R.id.tv_view_all);
     }
 
+    private void clickListener() {
+        viewAll.setOnClickListener(v -> {
+            AuthorImgListFragment fragment = AuthorImgListFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong("authorId",authorId);
+            fragment.setArguments(bundle);
+            manager.beginTransaction().replace(R.id.author_content_container,fragment).commit();
+        });
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+
+    }
 }

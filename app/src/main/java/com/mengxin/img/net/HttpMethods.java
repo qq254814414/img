@@ -122,4 +122,16 @@ public class HttpMethods {
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }
+
+    public void getFocusNum(Observer<Integer> observer,long id){
+        imgApiService.getFocusNum(id)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void getFansNum(Observer<Integer> observer,long id){
+        imgApiService.getFansNum(id)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
 }

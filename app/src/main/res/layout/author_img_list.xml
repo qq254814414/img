@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/ToolbarTheme"
-            app:navigationIcon="@drawable/back"
+            app:navigationIcon="@mipmap/meixu"
             app:title="作品"/>
 
     </android.support.design.widget.AppBarLayout>

@@ -76,4 +76,14 @@ public interface ImgApiService {
     Observable<ArrayList<Author>> getFocusList(
             @Path("id") long id
     );
+
+    @GET("author/getFocusNum/{id}")
+    Observable<Integer> getFocusNum(
+            @Path("id") long id
+    );
+
+    @GET("author/getFansNum/{id}")
+    Observable<Integer> getFansNum(
+            @Path("id") long id
+    );
 }
