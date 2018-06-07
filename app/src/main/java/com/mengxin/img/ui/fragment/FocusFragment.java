@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mengxin.img.R;
@@ -17,12 +18,14 @@ import com.mengxin.img.data.dto.Author;
 import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
 import com.mengxin.img.ui.activity.MainActivity;
+import com.mengxin.img.ui.adapter.FocusAdapter;
 import com.mengxin.img.utils.NetworkUtils;
 import com.mengxin.img.utils.PackageUtils;
 import com.mengxin.img.utils.ResUtils;
 import com.mengxin.img.utils.ToastUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -42,7 +45,14 @@ public class FocusFragment extends Fragment{
      * 用于模拟的数据
      * 包含两个用户，一个三张图，一个没有图。
      */
-    private ArrayList<Author> authors;
+    private Long authorId;
+    private CompositeDisposable mSubscriptions;
+    private ArrayList<Author> authorList;
+
+    private FocusAdapter adapter;
+
+    private ListView lvFocusList;
+
     public static FocusFragment newInstance() {
         FocusFragment fragment = new FocusFragment();
         return fragment;
@@ -52,8 +62,9 @@ public class FocusFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.focus,container,false);
+        lvFocusList=view.findViewById(R.id.lv_focusList);
         //初始化模拟数据
-        initData();
+//        authors=initData();
 
         return view;
     }
@@ -61,15 +72,45 @@ public class FocusFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mSubscriptions = new CompositeDisposable();
 
+        Bundle bundle=getArguments();
+        Long authorId=bundle.getLong("authorId");
+        HttpMethods.getInstance().getFocusList(new Observer<ArrayList<Author>>() {
+            private Disposable d;
+            @Override
+            public void onSubscribe(Disposable d) {
+                this.d=d;
+                mSubscriptions.add(d);
+            }
+
+            @Override
+            public void onNext(ArrayList<Author> authors) {
+                authorList=authors;
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                d.dispose();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        },authorId);
+        adapter=new FocusAdapter(getActivity(),authorList);
+        lvFocusList.setAdapter(adapter);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mSubscriptions.clear();
     }
 
-    private void initData() {
+
+    /*private ArrayList<Author> initData() {
         authors = new ArrayList<>();
         ArrayList<Img> imgs = new ArrayList<>();
         Img img = new Img();
@@ -84,13 +125,23 @@ public class FocusFragment extends Fragment{
         imgs.add(img);
         imgs.add(img2);
         imgs.add(img3);
+
         Author author1 = new Author();
         author1.setHeadImg("http://7xi8d6.com1.z0.glb.clouddn.com/20180129074038_O3ydq4_Screenshot.jpeg");
         author1.setId(1L);
+        author1.setName("用户1");
         author1.setImgList(imgs);
+
         Author author2 = new Author();
         author2.setHeadImg("http://7xi8d6.com1.z0.glb.clouddn.com/20180129074038_O3ydq4_Screenshot.jpeg");
         author2.setId(2L);
+        author2.setName("用户2");
         author2.setImgList(new ArrayList<>());
-    }
+
+        ArrayList<Author> authors=new ArrayList<>();
+        authors.add(author1);
+        authors.add(author2);
+
+        return authors;
+    }*/
 }

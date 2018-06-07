@@ -27,7 +27,11 @@ public class FocusActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.focus_container, FocusFragment.newInstance()).commit();
+        FocusFragment focusFragment=FocusFragment.newInstance();
+        Bundle bundle = new Bundle();
+        bundle.putLong("authorId",getIntent().getLongExtra("authorId",0));
+        focusFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.focus_container, focusFragment).commit();
 
     }
 }

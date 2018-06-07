@@ -34,7 +34,9 @@
         <activity android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.AuthorActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity android:name=".ui.activity.SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Slidr.Slidable"/>

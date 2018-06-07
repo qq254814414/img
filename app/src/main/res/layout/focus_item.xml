@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
+    android:layout_marginBottom="10dp">
+<LinearLayout
+    android:id="@+id/ll_imgs_focus"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/ll_imgs_gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_img1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="90dp"
+            android:background="#FFFFFF"/>
+        <ImageView
+            android:id="@+id/iv_img2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="90dp"
+            android:background="#FFFFFF"/>
+        <ImageView
+            android:id="@+id/iv_img3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="90dp"
+            android:background="#FFFFFF"/>
+    </LinearLayout>
 </LinearLayout>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_header_focus"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_nav_icon"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"
+        app:riv_oval="true"
+        android:scaleType="center"/>
+    <TextView
+        android:id="@+id/tv_author_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名"
+        android:layout_toRightOf="@id/iv_header_focus"
+        android:layout_below="@id/ll_imgs_focus"
+        android:layout_margin="15dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_alignBaseline="@id/iv_header_focus"/>
+    <Button
+        android:id="@+id/btn_state_focus"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:text="正在关注"
+        android:layout_below="@id/ll_imgs_focus"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/btn_focus_shape"
+        android:layout_alignBaseline="@id/iv_header_focus"/>
+</RelativeLayout>
