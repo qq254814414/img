@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
@@ -96,7 +97,14 @@ public class AuthorImgListFragment extends Fragment{
             }
         });
         toolbar = view.findViewById(R.id.toolbar);
-
+        toolbar.setNavigationOnClickListener(v -> {
+            FragmentManager manager = getActivity().getSupportFragmentManager();
+            AuthorFragment fragment = AuthorFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong("authorId",authorId);
+            fragment.setArguments(bundle);
+            manager.beginTransaction().replace(R.id.author_content_container,fragment).commit();
+        });
         return view;
     }
 

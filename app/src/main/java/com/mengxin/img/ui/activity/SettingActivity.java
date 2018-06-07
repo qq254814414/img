@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.mengxin.img.R;
+import com.mengxin.img.ui.fragment.ListViewFragment;
 import com.mengxin.img.ui.fragment.SystemSettingFragment;
 import com.r0adkll.slidr.Slidr;
 

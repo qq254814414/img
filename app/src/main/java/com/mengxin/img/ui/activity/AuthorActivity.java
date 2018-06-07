@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.mengxin.img.R;
 import com.mengxin.img.ui.fragment.AuthorFragment;
-import com.mengxin.img.utils.ToastUtils;
 
 public class AuthorActivity extends AppCompatActivity{
 
@@ -22,8 +21,7 @@ public class AuthorActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.author_content_main);
-        Intent intent = getIntent();
-        id = intent.getLongExtra("authorId",0);
+        id = getIntent().getLongExtra("authorId",0L);
 
         manager = getSupportFragmentManager();
         currentFragment = new Fragment();

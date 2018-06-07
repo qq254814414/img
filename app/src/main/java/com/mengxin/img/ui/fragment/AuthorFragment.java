@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +20,6 @@ import com.mengxin.img.R;
 import com.mengxin.img.data.dto.Author;
 import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
-import com.mengxin.img.ui.activity.FocusActivity;
 import com.mengxin.img.ui.activity.MainActivity;
 import com.mengxin.img.ui.adapter.AuthorImgAdapter;
 
@@ -45,7 +43,6 @@ public class AuthorFragment extends Fragment{
     private GridView imgList;
     private Button back;
     private TextView viewAll;
-    private LinearLayout llFocus;
 
     private AuthorImgAdapter adapter;
 
@@ -122,11 +119,6 @@ public class AuthorFragment extends Fragment{
             fragment.setArguments(bundle);
             manager.beginTransaction().replace(R.id.author_content_container,fragment).commit();
         });
-        llFocus.setOnClickListener(v->{
-            Intent intent=new Intent(getActivity(), FocusActivity.class);
-            intent.putExtra("authorId",authorId);
-            startActivity(intent);
-        });
     }
 
     @Override
@@ -143,7 +135,6 @@ public class AuthorFragment extends Fragment{
         imgList = view.findViewById(R.id.gv_imgList_personal);
         back = view.findViewById(R.id.bt_author_back);
         viewAll = view.findViewById(R.id.tv_view_all);
-        llFocus=view.findViewById(R.id.ll_attention_perosnal);
     }
 
 }

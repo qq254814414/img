@@ -26,13 +26,12 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.mengxin.img.R;
 import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
+import com.mengxin.img.ui.activity.AuthorActivity;
 import com.mengxin.img.ui.activity.LoginActivity;
 import com.mengxin.img.ui.activity.MainActivity;
 import com.mengxin.img.utils.NetworkUtils;
 import com.mengxin.img.utils.ResUtils;
 import com.mengxin.img.utils.ToastUtils;
-
-import org.w3c.dom.Attr;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -54,6 +53,7 @@ public class ImgDetailFragment extends Fragment{
     private TextView likeNum;
     private FloatingActionButton fab_like;
     private Boolean like = false;
+    private Long imgAuthorId;
 
     private JSONObject object = new JSONObject();
 
@@ -81,7 +81,7 @@ public class ImgDetailFragment extends Fragment{
             startActivity(intent);
         });
 
-        if (authorId != 0){
+        if (authorId != 0L){
             object.put("authorId",authorId);
             object.put("imgId",id);
             HttpMethods.getInstance().isLikeImg(new Observer<Boolean>() {
@@ -182,6 +182,12 @@ public class ImgDetailFragment extends Fragment{
                 },object);
             }
         });
+        authorHeader.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), AuthorActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("authorId",imgAuthorId);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -239,7 +245,7 @@ public class ImgDetailFragment extends Fragment{
                 publishTime.setText(img.getPublishTime().toString());
                 clickNum.setText(img.getClickNum().toString());
                 likeNum.setText(img.getFavoriteNum().toString());
-
+                imgAuthorId = img.getAuthor().getId();
             }
 
             @Override
