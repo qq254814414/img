@@ -64,6 +64,5 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:textColor="#FFFFFF"
-        android:background="@drawable/btn_focus_shape"
         android:layout_alignBaseline="@id/iv_header_focus"/>
 </RelativeLayout>

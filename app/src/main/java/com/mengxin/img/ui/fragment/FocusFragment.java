@@ -46,8 +46,8 @@ public class FocusFragment extends Fragment{
      * 包含两个用户，一个三张图，一个没有图。
      */
     private Long authorId;
+    private String type;
     private CompositeDisposable mSubscriptions;
-    private ArrayList<Author> authorList;
 
     private FocusAdapter adapter;
 
@@ -62,10 +62,10 @@ public class FocusFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.focus,container,false);
-        lvFocusList=view.findViewById(R.id.lv_focusList);
-        //初始化模拟数据
-//        authors=initData();
-
+        lvFocusList = view.findViewById(R.id.lv_focusList);
+        Bundle bundle = getArguments();
+        authorId = bundle.getLong("authorId");
+        type = bundle.getString("type");
         return view;
     }
 
@@ -74,33 +74,57 @@ public class FocusFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         mSubscriptions = new CompositeDisposable();
 
-        Bundle bundle=getArguments();
-        Long authorId=bundle.getLong("authorId");
-        HttpMethods.getInstance().getFocusList(new Observer<ArrayList<Author>>() {
-            private Disposable d;
-            @Override
-            public void onSubscribe(Disposable d) {
-                this.d=d;
-                mSubscriptions.add(d);
-            }
+        if (type.equals("关注列表")){
+            HttpMethods.getInstance().getFocusList(new Observer<ArrayList<Author>>() {
+                private Disposable d;
+                @Override
+                public void onSubscribe(Disposable d) {
+                    this.d=d;
+                    mSubscriptions.add(d);
+                }
 
-            @Override
-            public void onNext(ArrayList<Author> authors) {
-                authorList=authors;
-            }
+                @Override
+                public void onNext(ArrayList<Author> authors) {
+                    adapter = new FocusAdapter(getActivity(),authors);
+                    lvFocusList.setAdapter(adapter);
+                }
 
-            @Override
-            public void onError(Throwable e) {
-                d.dispose();
-            }
+                @Override
+                public void onError(Throwable e) {
+                    d.dispose();
+                }
 
-            @Override
-            public void onComplete() {
+                @Override
+                public void onComplete() {
 
-            }
-        },authorId);
-        adapter=new FocusAdapter(getActivity(),authorList);
-        lvFocusList.setAdapter(adapter);
+                }
+            },authorId);
+        } else {
+            HttpMethods.getInstance().getFansList(new Observer<ArrayList<Author>>() {
+                private Disposable d;
+                @Override
+                public void onSubscribe(Disposable d) {
+                    this.d=d;
+                    mSubscriptions.add(d);
+                }
+
+                @Override
+                public void onNext(ArrayList<Author> authors) {
+                    adapter = new FocusAdapter(getActivity(),authors);
+                    lvFocusList.setAdapter(adapter);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    d.dispose();
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            },authorId);
+        }
     }
 
     @Override
@@ -108,40 +132,4 @@ public class FocusFragment extends Fragment{
         super.onDestroy();
         mSubscriptions.clear();
     }
-
-
-    /*private ArrayList<Author> initData() {
-        authors = new ArrayList<>();
-        ArrayList<Img> imgs = new ArrayList<>();
-        Img img = new Img();
-        img.setId(1L);
-        img.setSrc("http://7xi8d6.com1.z0.glb.clouddn.com/20180129074038_O3ydq4_Screenshot.jpeg");
-        Img img2 = new Img();
-        img2.setId(1L);
-        img2.setSrc("http://7xi8d6.com1.z0.glb.clouddn.com/20180129074038_O3ydq4_Screenshot.jpeg");
-        Img img3 = new Img();
-        img3.setId(1L);
-        img3.setSrc("http://7xi8d6.com1.z0.glb.clouddn.com/20180129074038_O3ydq4_Screenshot.jpeg");
-        imgs.add(img);
-        imgs.add(img2);
-        imgs.add(img3);
-
-        Author author1 = new Author();
-        author1.setHeadImg("http://7xi8d6.com1.z0.glb.clouddn.com/20180129074038_O3ydq4_Screenshot.jpeg");
-        author1.setId(1L);
-        author1.setName("用户1");
-        author1.setImgList(imgs);
-
-        Author author2 = new Author();
-        author2.setHeadImg("http://7xi8d6.com1.z0.glb.clouddn.com/20180129074038_O3ydq4_Screenshot.jpeg");
-        author2.setId(2L);
-        author2.setName("用户2");
-        author2.setImgList(new ArrayList<>());
-
-        ArrayList<Author> authors=new ArrayList<>();
-        authors.add(author1);
-        authors.add(author2);
-
-        return authors;
-    }*/
 }

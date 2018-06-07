@@ -1,5 +1,6 @@
 package com.mengxin.img.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,15 +22,20 @@ public class FocusActivity extends AppCompatActivity{
     }
 
     private void initView() {
+        Intent intent = getIntent();
+        Long authorId = intent.getLongExtra("authorId",0L);
+        String type = intent.getStringExtra("type");
+
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("关注的作者");
+        toolbar.setTitle(type);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
 
         FocusFragment focusFragment=FocusFragment.newInstance();
         Bundle bundle = new Bundle();
-        bundle.putLong("authorId",getIntent().getLongExtra("authorId",0));
+        bundle.putLong("authorId",authorId);
+        bundle.putString("type",type);
         focusFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.focus_container, focusFragment).commit();
 

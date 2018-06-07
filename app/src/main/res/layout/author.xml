@@ -91,8 +91,7 @@
                     android:text="1"
                     android:textSize="20sp"
                     android:textColor="#000000"
-                    android:gravity="center"
-                    android:clickable="false"/>
+                    android:gravity="center"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -100,8 +99,7 @@
                     android:text="关注"
                     android:textSize="16sp"
                     android:gravity="center"
-                    android:textColor="#555555"
-                    android:clickable="false"/>
+                    android:textColor="#555555"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_fans_perosnal"
