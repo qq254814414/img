@@ -21,7 +21,7 @@ public class AuthorActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.author_content_main);
-        id = getIntent().getLongExtra("authorId",0);
+        id = getIntent().getLongExtra("authorId",0L);
 
         manager = getSupportFragmentManager();
         currentFragment = new Fragment();

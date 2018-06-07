@@ -8,6 +8,7 @@ import com.mengxin.img.utils.RxSchedulers;
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -123,6 +124,12 @@ public class HttpMethods {
                 .subscribe(observer);
     }
 
+    public void getFansList(Observer<ArrayList<Author>> observer,long id){
+        imgApiService.getFansList(id)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
     public void getFocusNum(Observer<Integer> observer,long id){
         imgApiService.getFocusNum(id)
                 .compose(RxSchedulers.obcompose())
@@ -131,6 +138,30 @@ public class HttpMethods {
 
     public void getFansNum(Observer<Integer> observer,long id){
         imgApiService.getFansNum(id)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void isFocus(Observer<Boolean> observer,long focus,long fans){
+        imgApiService.isFocus(focus,fans)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void focus(Observer<Boolean> observer,long focus,long fans){
+        JSONObject object = new JSONObject();
+        object.put("focus",focus);
+        object.put("fans",fans);
+        imgApiService.focus(object)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void unFocus(Observer<Boolean> observer,long focus,long fans){
+        JSONObject object = new JSONObject();
+        object.put("focus",focus);
+        object.put("fans",fans);
+        imgApiService.unFocus(object)
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }

@@ -77,6 +77,11 @@ public interface ImgApiService {
             @Path("id") long id
     );
 
+    @GET("author/getFansList/{id}")
+    Observable<ArrayList<Author>> getFansList(
+            @Path("id") long id
+    );
+
     @GET("author/getFocusNum/{id}")
     Observable<Integer> getFocusNum(
             @Path("id") long id
@@ -85,5 +90,21 @@ public interface ImgApiService {
     @GET("author/getFansNum/{id}")
     Observable<Integer> getFansNum(
             @Path("id") long id
+    );
+
+    @GET("author/isFocus/{focus}/{fans}")
+    Observable<Boolean> isFocus(
+            @Path("focus") long focus,
+            @Path("fans") long fans
+    );
+
+    @POST("author/focus")
+    Observable<Boolean> focus(
+            @Body JSONObject object
+    );
+
+    @POST("author/unFocus")
+    Observable<Boolean> unFocus(
+            @Body JSONObject object
     );
 }

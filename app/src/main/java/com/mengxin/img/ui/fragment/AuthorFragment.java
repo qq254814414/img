@@ -20,8 +20,11 @@ import com.mengxin.img.R;
 import com.mengxin.img.data.dto.Author;
 import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
+import com.mengxin.img.ui.activity.FocusActivity;
 import com.mengxin.img.ui.activity.MainActivity;
 import com.mengxin.img.ui.adapter.AuthorImgAdapter;
+import com.mengxin.img.utils.NetworkUtils;
+import com.mengxin.img.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,7 @@ public class AuthorFragment extends Fragment{
 
     private FragmentManager manager;
 
+    private Long meId;
     private Long authorId;
     private ImageView headImg;
     private ImageView bgImg;
@@ -45,6 +49,8 @@ public class AuthorFragment extends Fragment{
     private TextView fansNum;
     private TextView focusNum;
     private TextView viewAll;
+    private TextView focus;
+    private Boolean isFocus;
 
     private AuthorImgAdapter adapter;
 
@@ -56,7 +62,8 @@ public class AuthorFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.author,container,false);
-
+        meId = NetworkUtils.isLogin(getActivity());
+        isFocus = false;
         mSubscriptions = new CompositeDisposable();
         manager = getActivity().getSupportFragmentManager();
         initView(view);
@@ -108,6 +115,7 @@ public class AuthorFragment extends Fragment{
 
             }
         },authorId);
+        ToastUtils.shortToast(authorId.toString());
         HttpMethods.getInstance().getFansNum(new Observer<Integer>() {
             private Disposable d;
             @Override
@@ -154,6 +162,38 @@ public class AuthorFragment extends Fragment{
 
             }
         },authorId);
+        if (meId.equals(authorId)){
+            focus.setText("");
+        } else {
+            HttpMethods.getInstance().isFocus(new Observer<Boolean>() {
+                private Disposable d;
+                @Override
+                public void onSubscribe(Disposable d) {
+                    this.d = d;
+                    mSubscriptions.add(d);
+                }
+
+                @Override
+                public void onNext(Boolean aBoolean) {
+                    isFocus = aBoolean;
+                    if (isFocus){
+                        focus.setText("已关注");
+                    } else {
+                        focus.setText("关注");
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    d.dispose();
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            },authorId,meId);
+        }
 
         clickListener();
     }
@@ -174,6 +214,7 @@ public class AuthorFragment extends Fragment{
         fansNum = view.findViewById(R.id.tv_fansNum_personal);
         focusNum = view.findViewById(R.id.tv_attentionNum_personal);
         viewAll = view.findViewById(R.id.tv_view_all);
+        focus = view.findViewById(R.id.tv_focus);
     }
 
     private void clickListener() {
@@ -189,6 +230,79 @@ public class AuthorFragment extends Fragment{
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
+        fansNum.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(),FocusActivity.class);
+            intent.putExtra("authorId",authorId);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+        focusNum.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(),FocusActivity.class);
+            intent.putExtra("authorId",authorId);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+        focus.setOnClickListener(v -> {
+            if (isFocus){
+                HttpMethods.getInstance().unFocus(new Observer<Boolean>() {
+                    private Disposable d;
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        this.d = d;
+                        mSubscriptions.add(d);
+                    }
 
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        if (aBoolean == true){
+                            isFocus = false;
+                            focus.setText("关注");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        d.dispose();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                },authorId,meId);
+            } else {
+                if (meId == 0L){
+                    ToastUtils.shortToast("尚未登录");
+                    return;
+                } else {
+                    HttpMethods.getInstance().focus(new Observer<Boolean>() {
+                        private Disposable d;
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            this.d = d;
+                            mSubscriptions.add(d);
+                        }
+
+                        @Override
+                        public void onNext(Boolean aBoolean) {
+                            if (aBoolean == true){
+                                isFocus = true;
+                                focus.setText("已关注");
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            d.dispose();
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    },authorId,meId);
+                }
+            }
+        });
     }
 }

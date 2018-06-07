@@ -49,6 +49,16 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="5dp" />
     <TextView
+        android:id="@+id/tv_focus"
+        android:layout_below="@+id/iv_header_personal"
+        android:layout_toRightOf="@+id/tv_username_personal"
+        android:text="关注"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:textSize="18sp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="5dp"/>
+    <TextView
         android:id="@+id/tv_signature_personal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
