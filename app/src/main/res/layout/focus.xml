@@ -6,5 +6,7 @@
 <ListView
     android:id="@+id/lv_focusList"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"></ListView>
+    android:layout_height="wrap_content">
+
+</ListView>
 </LinearLayout>
