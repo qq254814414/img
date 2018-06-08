@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/ll_comment"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/iv_detail_img"
+        android:paddingStart="30dp"
+        android:paddingTop="10dp">
+        <!--头像-->
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_comment_header"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/meixu"
+            android:layout_gravity="center"
+            app:riv_border_width="0dp"
+            app:riv_oval="true" />
+        <!--姓名、简介-->
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_comment_name"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:text="评论用户名" />
+            <TextView
+                android:id="@+id/tv_comment_content"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:text="评论内容" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="25dp">
+                <TextView
+                    android:id="@+id/tv_comment_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="这是时间"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

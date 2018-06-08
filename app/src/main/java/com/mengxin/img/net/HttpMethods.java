@@ -3,6 +3,7 @@ package com.mengxin.img.net;
 import com.alibaba.fastjson.JSONObject;
 import com.mengxin.img.ImgInit;
 import com.mengxin.img.data.dto.Author;
+import com.mengxin.img.data.dto.Comment;
 import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.utils.RxSchedulers;
 
@@ -20,7 +21,7 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://10.7.85.229:8080/";
+    private static final String BASE_URL = "http://10.7.92.85:8080/";
     private ImgApiService imgApiService;
 
     private HttpMethods() {
@@ -162,6 +163,18 @@ public class HttpMethods {
         object.put("focus",focus);
         object.put("fans",fans);
         imgApiService.unFocus(object)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void saveComment(Observer<Boolean> observer, Comment comment){
+        imgApiService.saveComment(comment)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void getComment(Observer<ArrayList<Comment>> observer,long id){
+        imgApiService.getComment(id)
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }

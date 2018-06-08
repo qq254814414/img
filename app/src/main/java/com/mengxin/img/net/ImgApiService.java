@@ -2,6 +2,7 @@ package com.mengxin.img.net;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mengxin.img.data.dto.Author;
+import com.mengxin.img.data.dto.Comment;
 import com.mengxin.img.data.dto.Img;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ImgApiService {
-    @GET("图片/getIllList/{num}")
+    @GET("img/getIllList/{num}")
     Observable<ArrayList<Img>> fetchIllImg(
             @Path("num") int num
     );
@@ -21,7 +22,7 @@ public interface ImgApiService {
     Observable<Author> getAuthorDetail(
             @Path("id") long id
     );
-    @GET("图片/getById/{id}")
+    @GET("img/getById/{id}")
     Observable<Img> getImgDetail(
             @Path("id") long id
     );
@@ -46,7 +47,7 @@ public interface ImgApiService {
             @Body String phoneNumber
     );
 
-    @GET("图片/getHeadImg/{id}")
+    @GET("img/getHeadImg/{id}")
     Observable<String> getHeadImg(
             @Path("id") Long id
     );
@@ -66,7 +67,7 @@ public interface ImgApiService {
             @Body JSONObject object
     );
 
-    @GET("图片/getAuthorImg/{id}/{num}")
+    @GET("img/getAuthorImg/{id}/{num}")
     Observable<ArrayList<Img>> getAuthorImg(
             @Path("id") long id,
             @Path("num") int num
@@ -106,5 +107,15 @@ public interface ImgApiService {
     @POST("author/unFocus")
     Observable<Boolean> unFocus(
             @Body JSONObject object
+    );
+
+    @POST("img/saveComment")
+    Observable<Boolean> saveComment(
+            @Body Comment comment
+    );
+
+    @GET("img/getComment/{id}")
+    Observable<ArrayList<Comment>> getComment(
+            @Path("id") long id
     );
 }

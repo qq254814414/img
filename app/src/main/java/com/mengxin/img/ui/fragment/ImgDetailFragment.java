@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -24,14 +26,18 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.mengxin.img.R;
+import com.mengxin.img.data.dto.Author;
+import com.mengxin.img.data.dto.Comment;
 import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
 import com.mengxin.img.ui.activity.AuthorActivity;
-import com.mengxin.img.ui.activity.LoginActivity;
 import com.mengxin.img.ui.activity.MainActivity;
+import com.mengxin.img.ui.adapter.CommentAdapter;
 import com.mengxin.img.utils.NetworkUtils;
 import com.mengxin.img.utils.ResUtils;
 import com.mengxin.img.utils.ToastUtils;
+
+import java.util.ArrayList;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -54,8 +60,12 @@ public class ImgDetailFragment extends Fragment{
     private FloatingActionButton fab_like;
     private Boolean like = false;
     private Long imgAuthorId;
+    private EditText editText;
+    private Button submit;
+    private ListView commentList;
 
     private JSONObject object = new JSONObject();
+    private CommentAdapter commentAdapter;
 
     private Long authorId;
     private Long id;
@@ -108,7 +118,6 @@ public class ImgDetailFragment extends Fragment{
                 }
             },object);
         }
-
         return view;
     }
 
@@ -116,6 +125,7 @@ public class ImgDetailFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fetchImgDetail(id);
+        fetchComment(id);
         if (like){
             ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.color.colorAccent));
             fab_like.setBackgroundTintList(colorStateList);
@@ -123,7 +133,11 @@ public class ImgDetailFragment extends Fragment{
             ColorStateList colorStateList = ColorStateList.valueOf(R.attr.colorControlHighlight);
             fab_like.setBackgroundTintList(colorStateList);
         }
-        fab_like.setOnClickListener(v -> {
+        clickListener();
+    }
+
+    private void clickListener() {
+        fab_like.setOnClickListener(v ->{
             if (authorId == 0){
                 ToastUtils.shortToast("还没有登录!");
                 return;
@@ -187,6 +201,44 @@ public class ImgDetailFragment extends Fragment{
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("authorId",imgAuthorId);
             startActivity(intent);
+        });
+        submit.setOnClickListener(v ->{
+            if (authorId == 0L){
+                ToastUtils.shortToast("还没有登录");
+                return;
+            } else {
+                Comment comment = new Comment();
+                Author author = new Author();
+                author.setId(authorId);
+                comment.setContent(editText.getText().toString());
+                comment.setAuthor(author);
+                comment.setImgId(id);
+                HttpMethods.getInstance().saveComment(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mSubscriptions.add(d);
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        if (aBoolean){
+                            fetchComment(id);
+                            ToastUtils.shortToast("评论成功");
+                            editText.setText("");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                },comment);
+            }
         });
     }
 
@@ -260,6 +312,32 @@ public class ImgDetailFragment extends Fragment{
         },id);
     }
 
+    private void fetchComment(long id){
+        HttpMethods.getInstance().getComment(new Observer<ArrayList<Comment>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mSubscriptions.add(d);
+            }
+
+            @Override
+            public void onNext(ArrayList<Comment> comments) {
+                commentAdapter = new CommentAdapter(getActivity(),comments);
+                commentList.setAdapter(commentAdapter);
+                commentAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        },id);
+    }
+
     private void initView(View view) {
         back = view.findViewById(R.id.bt_img_detail_back);
         share = view.findViewById(R.id.bt_img_detail_share);
@@ -272,5 +350,8 @@ public class ImgDetailFragment extends Fragment{
         clickNum = view.findViewById(R.id.tv_img_click_num);
         likeNum = view.findViewById(R.id.tv_img_like_num);
         fab_like = view.findViewById(R.id.fab_like);
+        editText = view.findViewById(R.id.et_comment);
+        submit = view.findViewById(R.id.btn_submit);
+        commentList = view.findViewById(R.id.lv_comment);
     }
 }
