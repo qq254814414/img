@@ -21,7 +21,7 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://10.7.92.85:8080/";
+    private static final String BASE_URL = "http://10.7.85.229:8080/";
     private ImgApiService imgApiService;
 
     private HttpMethods() {

@@ -18,10 +18,12 @@ public interface ImgApiService {
     Observable<ArrayList<Img>> fetchIllImg(
             @Path("num") int num
     );
+
     @GET("author/getAuthorDetail/{id}")
     Observable<Author> getAuthorDetail(
             @Path("id") long id
     );
+
     @GET("img/getById/{id}")
     Observable<Img> getImgDetail(
             @Path("id") long id

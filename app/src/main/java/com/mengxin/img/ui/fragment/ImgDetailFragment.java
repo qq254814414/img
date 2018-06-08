@@ -105,6 +105,13 @@ public class ImgDetailFragment extends Fragment{
                 @Override
                 public void onNext(Boolean aBoolean) {
                     like = aBoolean;
+                    if (like){
+                        ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.color.colorAccent));
+                        fab_like.setBackgroundTintList(colorStateList);
+                    } else {
+                        ColorStateList colorStateList = ColorStateList.valueOf(R.attr.colorControlHighlight);
+                        fab_like.setBackgroundTintList(colorStateList);
+                    }
                 }
 
                 @Override
@@ -126,13 +133,6 @@ public class ImgDetailFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         fetchImgDetail(id);
         fetchComment(id);
-        if (like){
-            ColorStateList colorStateList = ColorStateList.valueOf(ResUtils.getColor(R.color.colorAccent));
-            fab_like.setBackgroundTintList(colorStateList);
-        } else {
-            ColorStateList colorStateList = ColorStateList.valueOf(R.attr.colorControlHighlight);
-            fab_like.setBackgroundTintList(colorStateList);
-        }
         clickListener();
     }
 

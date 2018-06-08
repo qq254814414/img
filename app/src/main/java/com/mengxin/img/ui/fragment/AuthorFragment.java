@@ -22,6 +22,7 @@ import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
 import com.mengxin.img.ui.activity.FocusActivity;
 import com.mengxin.img.ui.activity.MainActivity;
+import com.mengxin.img.ui.activity.SettingActivity;
 import com.mengxin.img.ui.adapter.AuthorImgAdapter;
 import com.mengxin.img.utils.NetworkUtils;
 import com.mengxin.img.utils.ToastUtils;
@@ -51,6 +52,7 @@ public class AuthorFragment extends Fragment{
     private TextView viewAll;
     private TextView focus;
     private Boolean isFocus;
+    private ImageView setting;
 
     private AuthorImgAdapter adapter;
 
@@ -67,7 +69,6 @@ public class AuthorFragment extends Fragment{
         mSubscriptions = new CompositeDisposable();
         manager = getActivity().getSupportFragmentManager();
         initView(view);
-
         return view;
     }
 
@@ -79,6 +80,10 @@ public class AuthorFragment extends Fragment{
         imgList.setAdapter(adapter);
 
         authorId = getArguments().getLong("authorId");
+
+        if (meId != authorId){
+            setting.setVisibility(View.GONE);
+        }
 
         HttpMethods.getInstance().getAuthorDetail(new Observer<Author>() {
             private Disposable d;
@@ -214,6 +219,7 @@ public class AuthorFragment extends Fragment{
         focusNum = view.findViewById(R.id.tv_attentionNum_personal);
         viewAll = view.findViewById(R.id.tv_view_all);
         focus = view.findViewById(R.id.tv_focus);
+        setting = view.findViewById(R.id.iv_settings_personal);
     }
 
     private void clickListener() {
@@ -274,7 +280,6 @@ public class AuthorFragment extends Fragment{
             } else {
                 if (meId == 0L){
                     ToastUtils.shortToast("尚未登录");
-                    return;
                 } else {
                     HttpMethods.getInstance().focus(new Observer<Boolean>() {
                         private Disposable d;
@@ -286,9 +291,9 @@ public class AuthorFragment extends Fragment{
 
                         @Override
                         public void onNext(Boolean aBoolean) {
-                            if (aBoolean == true){
+                            if (aBoolean){
                                 isFocus = true;
-                                focus.setText("已关注");
+                                focus.setText("正在关注");
                             }
                         }
 
@@ -304,6 +309,11 @@ public class AuthorFragment extends Fragment{
                     },authorId,meId);
                 }
             }
+        });
+        setting.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SettingActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
     }
 }
