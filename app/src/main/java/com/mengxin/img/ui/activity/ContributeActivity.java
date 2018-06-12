@@ -6,14 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.mengxin.img.R;
-import com.mengxin.img.ui.fragment.SystemSettingFragment;
+import com.mengxin.img.ui.fragment.ContributeBeginFragment;
 import com.r0adkll.slidr.Slidr;
-
-/**
- * 描述：设置的Activity
- *
- * @author jay on 2018/1/12 14:01
- */
 
 public class ContributeActivity extends AppCompatActivity {
 
@@ -22,7 +16,7 @@ public class ContributeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_contribute);
         Slidr.attach(this);
         initView();
     }
@@ -34,7 +28,7 @@ public class ContributeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.cly_root, SystemSettingFragment.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contribute_main, ContributeBeginFragment.newInstance()).commit();
 
     }
 

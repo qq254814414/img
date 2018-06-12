@@ -26,6 +26,7 @@ import com.mengxin.img.ui.fragment.IllustrationsFragment;
 import com.mengxin.img.utils.NetworkUtils;
 import com.mengxin.img.utils.PackageUtils;
 import com.mengxin.img.utils.ResUtils;
+import com.mengxin.img.utils.ToastUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -87,8 +88,25 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.nav_focus:
                     intent = new Intent(mcontext,FocusActivity.class);
+                    intent.putExtra("type","关注列表");
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    break;
+                case R.id.nav_fans:
+                    intent = new Intent(mcontext,FocusActivity.class);
+                    intent.putExtra("type","粉丝列表");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_con:
+                    if (authorId == 0L){
+                        ToastUtils.shortToast("还没登陆");
+                    } else {
+                        intent = new Intent(mcontext,ContributeActivity.class);
+                        intent.putExtra("authorId",authorId);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
                     break;
             }
             drawer_layout.closeDrawer(GravityCompat.START);

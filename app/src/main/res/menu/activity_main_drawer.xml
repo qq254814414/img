@@ -10,9 +10,9 @@
                 android:icon="@drawable/ic_menu_sister"
                 android:title="@string/menu_see_ill_img" />
             <item
-                android:id="@+id/nav_see_news"
+                android:id="@+id/nav_con"
                 android:icon="@drawable/ic_menu_news"
-                android:title="@string/menu_see_news" />
+                android:title="上传作品" />
         </menu>
     </item>
 

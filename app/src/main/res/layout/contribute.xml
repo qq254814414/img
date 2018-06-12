@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <ImageView
+        android:id="@+id/iv_con"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:clickable="true"/>
+    <EditText
+        android:id="@+id/con_name"
+        android:layout_below="@+id/iv_con"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="插画名称"/>
+    <EditText
+        android:id="@+id/con_introduction"
+        android:layout_below="@+id/con_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="介绍"/>
+    <EditText
+        android:id="@+id/con_type"
+        android:layout_below="@id/con_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="标签"/>
+    <Button
+        android:id="@+id/bt_con_ok"
+        android:layout_below="@id/con_type"
+        android:text="完成"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-</LinearLayout>
+</RelativeLayout>

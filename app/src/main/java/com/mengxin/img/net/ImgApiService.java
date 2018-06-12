@@ -6,12 +6,17 @@ import com.mengxin.img.data.dto.Comment;
 import com.mengxin.img.data.dto.Img;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ImgApiService {
     @GET("img/getIllList/{num}")
@@ -120,4 +125,11 @@ public interface ImgApiService {
     Observable<ArrayList<Comment>> getComment(
             @Path("id") long id
     );
+
+    @Multipart
+    @POST("img/upLoad")
+    Observable<String> upLoad(
+            @Part MultipartBody.Part img
+    );
+
 }

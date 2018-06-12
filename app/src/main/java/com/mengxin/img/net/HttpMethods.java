@@ -1,19 +1,33 @@
 package com.mengxin.img.net;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+
 import com.alibaba.fastjson.JSONObject;
 import com.mengxin.img.ImgInit;
 import com.mengxin.img.data.dto.Author;
 import com.mengxin.img.data.dto.Comment;
 import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.utils.RxSchedulers;
+import com.mengxin.img.utils.ToastUtils;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.fastjson.FastJsonConverterFactory;
+import retrofit2.http.Multipart;
 
 /**
  * Created by zt on 2017/3/10.
@@ -21,7 +35,7 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://10.7.85.229:8080/";
+    private static final String BASE_URL = "http://192.168.0.104:8080/";
     private ImgApiService imgApiService;
 
     private HttpMethods() {
@@ -175,6 +189,16 @@ public class HttpMethods {
 
     public void getComment(Observer<ArrayList<Comment>> observer,long id){
         imgApiService.getComment(id)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void upLoad(Observer<String> observer,String path){
+        File file = new File(path);
+        ToastUtils.shortToast(file.getName());
+        RequestBody requestBody1 = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestBody1);
+        imgApiService.upLoad(body)
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }
