@@ -18,7 +18,8 @@
                 android:id="@+id/iv_detail_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/white" />
+                android:src="@drawable/white"
+                android:clickable="false"/>
 
             <RelativeLayout
                 android:id="@+id/rl_menu"
@@ -169,7 +170,7 @@
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="16dp"
 
-        app:backgroundTint="?attr/colorControlHighlight"
+        app:backgroundTint="?android:attr/colorControlHighlight"
         app:borderWidth="0dp"
         app:srcCompat="@drawable/favorites"
         tools:ignore="RelativeOverlap" />

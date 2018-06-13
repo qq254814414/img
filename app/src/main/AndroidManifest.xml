@@ -51,6 +51,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Slidr.Slidable"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity android:name=".ui.activity.ZoomActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Slidr.Slidable"/>
 
     <!--<activity-->
             <!--android:name=".ui.activity.SettingActivity"-->

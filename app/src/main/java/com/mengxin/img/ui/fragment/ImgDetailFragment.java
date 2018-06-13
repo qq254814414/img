@@ -32,6 +32,7 @@ import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
 import com.mengxin.img.ui.activity.AuthorActivity;
 import com.mengxin.img.ui.activity.MainActivity;
+import com.mengxin.img.ui.activity.ZoomActivity;
 import com.mengxin.img.ui.adapter.CommentAdapter;
 import com.mengxin.img.utils.NetworkUtils;
 import com.mengxin.img.utils.ResUtils;
@@ -63,6 +64,7 @@ public class ImgDetailFragment extends Fragment{
     private EditText editText;
     private Button submit;
     private ListView commentList;
+    private String src;
 
     private JSONObject object = new JSONObject();
     private CommentAdapter commentAdapter;
@@ -84,12 +86,6 @@ public class ImgDetailFragment extends Fragment{
 
         mSubscriptions = new CompositeDisposable();
         initView(view);
-
-        back.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(),MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
 
         if (authorId != 0L){
             object.put("authorId",authorId);
@@ -240,6 +236,17 @@ public class ImgDetailFragment extends Fragment{
                 },comment);
             }
         });
+        imgView.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(),ZoomActivity.class);
+            intent.putExtra("pic_url",src);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(),MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -298,6 +305,8 @@ public class ImgDetailFragment extends Fragment{
                 clickNum.setText(img.getClickNum().toString());
                 likeNum.setText(img.getFavoriteNum().toString());
                 imgAuthorId = img.getAuthor().getId();
+                src = img.getSrc();
+                imgView.setClickable(true);
             }
 
             @Override

@@ -35,7 +35,7 @@ import retrofit2.http.Multipart;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://192.168.0.104:8080/";
+    private static final String BASE_URL = "http://10.7.85.229:8080/";
     private ImgApiService imgApiService;
 
     private HttpMethods() {
