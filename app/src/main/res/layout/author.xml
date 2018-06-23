@@ -196,6 +196,7 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
@@ -205,22 +206,24 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"/>
+    <TextView
+        android:id="@+id/tv_view_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_line"
+        android:textSize="16sp"
+        android:gravity="right"
+        android:paddingRight="30dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="查看所有" />
     <GridView
         android:id="@+id/gv_imgList_personal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="3"
-        android:layout_below="@id/view_line"
+        android:layout_below="@id/tv_view_all"
         android:layout_margin="10dp"
         android:verticalSpacing="20dp">
     </GridView>
-    <TextView
-        android:layout_marginRight="20dp"
-        android:id="@+id/tv_view_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="查看所有"
-        android:layout_alignTop="@+id/gv_imgList_personal"
-        android:layout_alignRight="@+id/gv_imgList_personal"/>
 </RelativeLayout>

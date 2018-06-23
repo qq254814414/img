@@ -5,16 +5,20 @@ import com.mengxin.img.data.dto.Author;
 import com.mengxin.img.data.dto.Comment;
 import com.mengxin.img.data.dto.Img;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -128,8 +132,15 @@ public interface ImgApiService {
 
     @Multipart
     @POST("img/upLoad")
-    Observable<String> upLoad(
-            @Part MultipartBody.Part img
+    Observable<Boolean> upLoad(
+            @Part MultipartBody.Part file,
+            @Part("img") String img
+    );
+
+    @GET("img/get10RankingList/{beginTime}/{endTime}")
+    Observable<ArrayList<Img>> get10RankingList(
+            @Path("beginTime") String beginTime,
+            @Path("endTime") String endTime
     );
 
 }

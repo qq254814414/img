@@ -59,7 +59,7 @@ public class IllustrationsFragment extends Fragment {
     }
 
     private class TabFragmentPagerAdapter extends FragmentPagerAdapter {
-        private final String[] mTitles = {"Gank.io"};
+        private final String[] mTitles = {"                     推荐                     ","                     排行榜                      "};
 
         private TabFragmentPagerAdapter(FragmentManager fm) {
             super(fm);

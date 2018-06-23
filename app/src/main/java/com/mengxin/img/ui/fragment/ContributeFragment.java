@@ -24,13 +24,17 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.mengxin.img.R;
+import com.mengxin.img.data.dto.Author;
+import com.mengxin.img.data.dto.Img;
 import com.mengxin.img.net.HttpMethods;
+import com.mengxin.img.utils.NetworkUtils;
 import com.mengxin.img.utils.ToastUtils;
 
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Date;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -40,8 +44,9 @@ public class ContributeFragment extends Fragment{
     private ImageView imageView;
     private EditText name;
     private EditText introduction;
+    private EditText type;
     private Button button;
-//    private EditText type;
+    private Long authorId;
 
     private Uri uri;
 
@@ -53,6 +58,7 @@ public class ContributeFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.contribute,container,false);
+        authorId = NetworkUtils.isLogin(getActivity());
         initView(view);
         clickListener();
         return view;
@@ -62,6 +68,7 @@ public class ContributeFragment extends Fragment{
         imageView = view.findViewById(R.id.iv_con);
         name = view.findViewById(R.id.con_name);
         introduction = view.findViewById(R.id.con_introduction);
+        type = view.findViewById(R.id.con_type);
         button = view.findViewById(R.id.bt_con_ok);
     }
 
@@ -75,27 +82,43 @@ public class ContributeFragment extends Fragment{
             startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
         });
         button.setOnClickListener(v -> {
-            HttpMethods.getInstance().upLoad(new Observer<String>() {
+            Author author = new Author();
+            author.setId(authorId);
+            Img a = new Img();
+            a.setName(name.getText().toString());
+            a.setIntroduction(introduction.getText().toString());
+            a.setAuthor(author);
+            HttpMethods.getInstance().upLoad(new Observer<Boolean>() {
                 @Override
                 public void onSubscribe(Disposable d) {
 
                 }
 
                 @Override
-                public void onNext(String s) {
-                    ToastUtils.shortToast(s);
+                public void onNext(Boolean b) {
+                    if (b){
+                        ToastUtils.shortToast("上传成功");
+                        Glide.with(getActivity())
+                                .load(R.drawable.white)
+                                .into(imageView);
+                        name.setText("");
+                        introduction.setText("");
+                        type.setText("");
+                    } else {
+                        ToastUtils.shortToast("出现异常，请重试");
+                    }
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                    ToastUtils.shortToast(e.getMessage());
+                    ToastUtils.shortToast(e.toString());
                 }
 
                 @Override
                 public void onComplete() {
 
                 }
-            },getRealPathFromURI(uri));
+            },getRealPathFromURI(uri),a);
         });
     }
 

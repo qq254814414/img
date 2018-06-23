@@ -36,7 +36,6 @@ public class SettingActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(view -> finish());
 
         getSupportFragmentManager().beginTransaction().replace(R.id.cly_root, SystemSettingFragment.newInstance()).commit();
-
     }
 
 

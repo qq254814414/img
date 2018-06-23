@@ -10,11 +10,15 @@ import android.view.ViewGroup;
 
 import com.mengxin.img.R;
 import com.mengxin.img.data.dto.Img;
+import com.mengxin.img.net.HttpMethods;
 import com.mengxin.img.ui.adapter.ImgListAdapter;
+import com.mengxin.img.utils.TimeUtils;
 
 import java.util.ArrayList;
 
 import View.HorizontalListView;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class ListViewFragment extends Fragment{
 
@@ -29,21 +33,42 @@ public class ListViewFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.item_top_list,container,false);
         list_img = view.findViewById(R.id.hlv_top);
-        mData = new ArrayList<>();
-        for (int i = 0; i < 10; i++){
-            Img img = new Img();
-            img.setSrc("http://7xi8d6.com1.z0.glb.clouddn.com/20180129074038_O3ydq4_Screenshot.jpeg");
-            mData.add(img);
-        }
+
+        initData();
+
         return view;
+    }
+
+    private void initData() {
+        HttpMethods.getInstance().get10RankingList(new Observer<ArrayList<Img>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(ArrayList<Img> imgs) {
+                mData = imgs;
+                adapter = new ImgListAdapter(mData,getActivity());
+                list_img.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        }, TimeUtils.getTime(),TimeUtils.getTomorrowTime());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new ImgListAdapter(mData,getActivity());
-        list_img.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
     @Override

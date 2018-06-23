@@ -1,6 +1,7 @@
 package com.mengxin.img.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mengxin.img.R;
 import com.mengxin.img.data.dto.Img;
+import com.mengxin.img.ui.activity.PictureDetailActivity;
 
 import java.util.ArrayList;
 
@@ -60,7 +62,10 @@ public class AuthorImgAdapter extends BaseAdapter{
          * 图片点击事件
          */
         imageView.setOnClickListener(v -> {
-
+            Intent intent = new Intent(context, PictureDetailActivity.class);
+            intent.putExtra("img_id",img.getId());
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
         });
         return convertView;
     }

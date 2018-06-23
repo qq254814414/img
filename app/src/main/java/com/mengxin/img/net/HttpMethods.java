@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mengxin.img.ImgInit;
 import com.mengxin.img.data.dto.Author;
@@ -17,7 +18,9 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -35,7 +38,7 @@ import retrofit2.http.Multipart;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://10.7.85.229:8080/";
+    private static final String BASE_URL = "http://10.0.2.2:8080/";
     private ImgApiService imgApiService;
 
     private HttpMethods() {
@@ -193,12 +196,20 @@ public class HttpMethods {
                 .subscribe(observer);
     }
 
-    public void upLoad(Observer<String> observer,String path){
+    public void upLoad(Observer<Boolean> observer,String path,Img img){
         File file = new File(path);
-        ToastUtils.shortToast(file.getName());
-        RequestBody requestBody1 = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestBody1);
-        imgApiService.upLoad(body)
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        RequestBody fileRequestBody = RequestBody.create(MediaType.parse("image/*"),file);
+        builder.addFormDataPart("file",file.getName(),fileRequestBody);
+        MultipartBody.Part part1 = builder.build().part(0);
+
+        imgApiService.upLoad(part1,JSON.toJSONString(img))
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void get10RankingList(Observer<ArrayList<Img>> observer,String beginTime,String endTime){
+        imgApiService.get10RankingList(beginTime,endTime)
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }

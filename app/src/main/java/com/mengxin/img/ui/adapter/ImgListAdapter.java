@@ -47,7 +47,6 @@ public ImgListAdapter(ArrayList<Img> mData,Context mContext){
         ImageView img_bg = convertView.findViewById(R.id.img_bg);
         Glide.with(mContext)
                 .load(mData.get(position).getSrc())
-                .apply(new RequestOptions().centerCrop())
                 .into(img_bg);
         return convertView;
     }
