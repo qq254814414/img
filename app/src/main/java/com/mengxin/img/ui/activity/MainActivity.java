@@ -98,6 +98,17 @@ public class MainActivity extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     break;
+                case R.id.nav_like:
+                    intent = new Intent(mcontext,LikeActivity.class);
+                    intent.putExtra("authorId",authorId);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_search:
+                    intent = new Intent(mcontext,SearchActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    break;
                 case R.id.nav_con:
                     if (authorId == 0L){
                         ToastUtils.shortToast("还没登陆");

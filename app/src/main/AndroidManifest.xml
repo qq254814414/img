@@ -41,6 +41,12 @@
         <activity android:name=".ui.activity.FocusActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Slidr.Slidable"/>
+        <activity android:name=".ui.activity.LikeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Slidr.Slidable"/>
+        <activity android:name=".ui.activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Slidr.Slidable"/>
         <activity
             android:name=".ui.activity.PictureDetailActivity"
             android:screenOrientation="portrait"

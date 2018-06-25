@@ -13,6 +13,10 @@
                 android:id="@+id/nav_con"
                 android:icon="@drawable/ic_menu_news"
                 android:title="上传作品" />
+            <item
+                android:id="@+id/nav_like"
+                android:icon="@mipmap/meixu"
+                android:title="我的收藏"/>
         </menu>
     </item>
 
@@ -31,6 +35,10 @@
 
     <item android:title="@string/menu_else" >
         <menu>
+            <item
+                android:id="@+id/nav_search"
+                android:icon="@mipmap/meixu"
+                android:title="搜索"/>
             <item
                 android:id="@+id/nav_else_setting"
                 android:icon="@drawable/ic_menu_setting"

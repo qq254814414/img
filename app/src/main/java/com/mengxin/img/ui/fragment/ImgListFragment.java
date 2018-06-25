@@ -37,7 +37,6 @@ import io.reactivex.disposables.Disposable;
  * 图片显示List
  */
 public class ImgListFragment extends Fragment{
-    private static final String TAG = "GankMZFragment";
 
     private Long authorId;
     private String page;

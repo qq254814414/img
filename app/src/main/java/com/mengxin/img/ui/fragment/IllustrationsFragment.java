@@ -67,7 +67,11 @@ public class IllustrationsFragment extends Fragment {
 
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
-            return ImgListFragment.newInstance();
+            if (position == 0){
+                return ImgListFragment.newInstance();
+            } else {
+                return TopImgListFragment.newInstance();
+            }
         }
 
         @Override

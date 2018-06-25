@@ -213,4 +213,16 @@ public class HttpMethods {
                 .compose(RxSchedulers.obcompose())
                 .subscribe(observer);
     }
+
+    public void getAuthorLike(Observer<ArrayList<Img>> observer,Long authorId){
+        imgApiService.getAuthorLike(authorId)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
+
+    public void search(Observer<ArrayList<Img>> observer,String temp){
+        imgApiService.search(temp)
+                .compose(RxSchedulers.obcompose())
+                .subscribe(observer);
+    }
 }

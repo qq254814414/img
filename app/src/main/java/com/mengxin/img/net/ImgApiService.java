@@ -143,4 +143,14 @@ public interface ImgApiService {
             @Path("endTime") String endTime
     );
 
+    @GET("author/getAuthorLike/{authorId}")
+    Observable<ArrayList<Img>> getAuthorLike(
+            @Path("authorId") Long authorId
+    );
+
+    @GET("img/search/{temp}")
+    Observable<ArrayList<Img>> search(
+            @Path("temp") String temp
+    );
+
 }
