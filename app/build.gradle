@@ -61,6 +61,7 @@ dependencies {
     implementation depend_lib["fastJson"]
     implementation depend_lib["fastJsonConverter"]
     implementation depend_lib["roundedimageview"]
+    implementation depend_lib["transformations"]
 }
 
 

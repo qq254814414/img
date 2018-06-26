@@ -78,9 +78,7 @@ public class TopListAdapter extends BaseAdapter{
                         float scale = (float) viewWidth / (float) resource.getIntrinsicWidth();
                         int viewHeight = Math.round(resource.getIntrinsicHeight() * scale);
                         params.height = viewHeight;
-
                         imgView.setLayoutParams(params);
-
                         return false;
                     }
                 })

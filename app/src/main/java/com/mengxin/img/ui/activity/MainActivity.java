@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.nav_focus:
                     intent = new Intent(mcontext,FocusActivity.class);
+                    intent.putExtra("authorId",authorId);
                     intent.putExtra("type","关注列表");
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

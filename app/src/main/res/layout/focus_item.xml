@@ -58,11 +58,10 @@
         android:id="@+id/btn_state_focus"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:text="正在关注"
+        android:background="@color/white"
         android:layout_below="@id/ll_imgs_focus"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:textColor="#FFFFFF"
         android:layout_alignBaseline="@id/iv_header_focus"/>
 </RelativeLayout>

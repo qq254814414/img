@@ -132,12 +132,19 @@
                 android:paddingStart="30dp"
                 android:paddingTop="10dp"
                 android:text="这里是图片介绍" />
-
+            <View
+                android:id="@+id/aline"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/divider"
+                android:layout_below="@+id/tv_img_introduction"/>
                 <View.NoScrollListView
                     android:id="@+id/lv_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_img_introduction"/>
+                    android:layout_below="@+id/aline"/>
         </RelativeLayout>
     </ScrollView>
     <LinearLayout
@@ -145,7 +152,8 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:paddingEnd="15dp"
-        android:paddingStart="15dp">
+        android:paddingStart="15dp"
+        android:background="@color/white">
 
         <EditText
             android:id="@+id/et_comment"

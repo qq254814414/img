@@ -36,6 +36,7 @@ import com.mengxin.img.ui.activity.ZoomActivity;
 import com.mengxin.img.ui.adapter.CommentAdapter;
 import com.mengxin.img.utils.NetworkUtils;
 import com.mengxin.img.utils.ResUtils;
+import com.mengxin.img.utils.TimeUtils;
 import com.mengxin.img.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -301,7 +302,7 @@ public class ImgDetailFragment extends Fragment{
                 imgName.setText(img.getName());
                 imgIntroduction.setText(img.getIntroduction());
                 authorName.setText(img.getAuthor().getName());
-                publishTime.setText(img.getPublishTime().toString());
+                publishTime.setText(TimeUtils.getFormat(img.getPublishTime()));
                 clickNum.setText(img.getClickNum().toString());
                 likeNum.setText(img.getFavoriteNum().toString());
                 imgAuthorId = img.getAuthor().getId();

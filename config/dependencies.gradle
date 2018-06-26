@@ -13,6 +13,7 @@ def timberVersion = "4.6.1"
 def fastJsonVersion = "1.2.47"
 def fastJsonConverter = "2.1.0"
 def roundedimageview = "2.2.1"
+def transformations = "2.0.1"
 
 project.ext {
     depend_android = [
@@ -46,7 +47,8 @@ project.ext {
             "timber"            : "com.jakewharton.timber:timber:${timberVersion}",
             "fastJson"          : "com.alibaba:fastjson:${fastJsonVersion}",
             "fastJsonConverter" : "org.ligboy.retrofit2:converter-fastjson-android:${fastJsonConverter}",
-            "roundedimageview"  : "com.makeramen:roundedimageview:${roundedimageview}"
+            "roundedimageview"  : "com.makeramen:roundedimageview:${roundedimageview}",
+            "transformations"   : "jp.wasabeef:glide-transformations:${transformations}"
 
     ]
 }

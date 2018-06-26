@@ -7,15 +7,15 @@
         <menu>
             <item
                 android:id="@+id/nav_see_little_sister"
-                android:icon="@drawable/ic_menu_sister"
+                android:icon="@drawable/iviewall"
                 android:title="@string/menu_see_ill_img" />
             <item
                 android:id="@+id/nav_con"
-                android:icon="@drawable/ic_menu_news"
+                android:icon="@drawable/iupload"
                 android:title="上传作品" />
             <item
                 android:id="@+id/nav_like"
-                android:icon="@mipmap/meixu"
+                android:icon="@drawable/ifav"
                 android:title="我的收藏"/>
         </menu>
     </item>
@@ -24,11 +24,11 @@
         <menu>
             <item
                 android:id="@+id/nav_focus"
-                android:icon="@drawable/ic_menu_weather"
+                android:icon="@drawable/ifoucs"
                 android:title="关注" />
             <item
                 android:id="@+id/nav_fans"
-                android:icon="@drawable/ic_menu_subway"
+                android:icon="@drawable/fans"
                 android:title="粉丝" />
         </menu>
     </item>
@@ -37,15 +37,15 @@
         <menu>
             <item
                 android:id="@+id/nav_search"
-                android:icon="@mipmap/meixu"
+                android:icon="@drawable/isearch"
                 android:title="搜索"/>
             <item
                 android:id="@+id/nav_else_setting"
-                android:icon="@drawable/ic_menu_setting"
+                android:icon="@drawable/isetting"
                 android:title="@string/menu_else_setting" />
             <item
                 android:id="@+id/nav_else_about"
-                android:icon="@drawable/ic_menu_about"
+                android:icon="@drawable/iabout"
                 android:title="@string/menu_else_about" />
         </menu>
     </item>

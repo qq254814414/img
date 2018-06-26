@@ -48,16 +48,16 @@
         android:layout_below="@+id/iv_header_personal"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="5dp" />
-    <TextView
-        android:id="@+id/tv_focus"
+    <Button
+        android:id="@+id/btfocus0"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:background="@null"
         android:layout_below="@+id/iv_header_personal"
         android:layout_toRightOf="@+id/tv_username_personal"
-        android:text="关注"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:textSize="18sp"
         android:layout_marginLeft="200dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        />
     <TextView
         android:id="@+id/tv_signature_personal"
         android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
-                    android:text="2"
+                    android:text="0"
                     android:textSize="20sp"
                     android:textColor="#000000"
                     android:gravity="center"/>

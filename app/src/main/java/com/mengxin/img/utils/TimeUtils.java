@@ -7,6 +7,9 @@ public class TimeUtils {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     public static String getTime(){
         Date date = new Date();
+        Long temp = date.getTime();
+        temp = temp - 1000*60*60*24L;
+        date.setTime(temp);
         return dateFormat.format(date);
     }
     public static String getTomorrowTime(){
@@ -14,6 +17,9 @@ public class TimeUtils {
         Long temp = date.getTime();
         temp = temp + 1000*60*60*24L;
         date.setTime(temp);
+        return dateFormat.format(date);
+    }
+    public static String getFormat(Date date){
         return dateFormat.format(date);
     }
 }

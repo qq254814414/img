@@ -1,7 +1,12 @@
 package com.mengxin.img.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.mengxin.img.R;
 import com.mengxin.img.data.dto.Author;
@@ -82,12 +92,18 @@ public class FocusAdapter extends BaseAdapter{
 
                 }
 
+                @SuppressLint("ResourceAsColor")
                 @Override
                 public void onComplete() {
+                    Resources resources = context.getResources();
                     if (isFocus){
                         focus.setText("正在关注");
+                        focus.setBackground(resources.getDrawable(R.color.colorPrimaryDark));
+                        focus.setTextColor(resources.getColor(R.color.white));
                     } else {
                         focus.setText("关注");
+                        focus.setBackground(resources.getDrawable(R.color.white));
+                        focus.setTextColor(resources.getColor(R.color.colorPrimaryDark));
                     }
                     focus.setOnClickListener(v -> {
                         if (isFocus){
@@ -102,6 +118,8 @@ public class FocusAdapter extends BaseAdapter{
                                     if (aBoolean == true){
                                         isFocus = false;
                                         focus.setText("关注");
+                                        focus.setBackground(resources.getDrawable(R.color.white));
+                                        focus.setTextColor(resources.getColor(R.color.colorPrimaryDark));
                                     }
                                 }
 
@@ -130,6 +148,8 @@ public class FocusAdapter extends BaseAdapter{
                                         if (aBoolean){
                                             isFocus = true;
                                             focus.setText("正在关注");
+                                            focus.setBackground(resources.getDrawable(R.color.colorPrimaryDark));
+                                            focus.setTextColor(resources.getColor(R.color.white));
                                         }
                                     }
 
@@ -161,11 +181,35 @@ public class FocusAdapter extends BaseAdapter{
         imageViews.add(img2);
         imageViews.add(img3);
         for (int i = 0; i < num; i++){
-            ImageView view = imageViews.get(i);
+            ImageView view0 = imageViews.get(i);
             Img img = imgList.get(i);
-            view.setClickable(true);
-            Glide.with(context).asBitmap().load(img.getSrc()).into(view);
-            view.setOnClickListener(v -> {
+            view0.setClickable(true);
+            Glide.with(context)
+                    .load(img.getSrc())
+                    .apply(new RequestOptions()
+                            .centerCrop())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            if (view0.getScaleType() != ImageView.ScaleType.FIT_XY) {
+                                view0.setScaleType(ImageView.ScaleType.FIT_XY);
+                            }
+                            ViewGroup.LayoutParams params = view0.getLayoutParams();
+                            int viewWidth = view0.getWidth();
+                            float scale = (float) viewWidth / (float) resource.getIntrinsicWidth();
+                            int viewHeight = Math.round(resource.getIntrinsicHeight() * scale);
+                            params.height = viewHeight;
+                            view0.setLayoutParams(params);
+                            return false;
+                        }
+                    })
+                    .into(view0);
+            view0.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PictureDetailActivity.class);
                 intent.putExtra("img_id",img.getId());
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

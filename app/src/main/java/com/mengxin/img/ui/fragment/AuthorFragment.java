@@ -1,6 +1,7 @@
 package com.mengxin.img.ui.fragment;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class AuthorFragment extends Fragment{
 
@@ -50,9 +52,10 @@ public class AuthorFragment extends Fragment{
     private TextView fansNum;
     private TextView focusNum;
     private TextView viewAll;
-    private TextView focus;
+    private Button focus;
     private Boolean isFocus;
     private ImageView setting;
+    private Resources resources;
 
     private AuthorImgAdapter adapter;
 
@@ -68,6 +71,7 @@ public class AuthorFragment extends Fragment{
         isFocus = false;
         mSubscriptions = new CompositeDisposable();
         manager = getActivity().getSupportFragmentManager();
+        resources = getActivity().getResources();
         initView(view);
         return view;
     }
@@ -101,9 +105,8 @@ public class AuthorFragment extends Fragment{
                                 .centerCrop())
                         .into(headImg);
                 Glide.with(getActivity())
-                        .load(author.getBgImg())
-                        .apply(new RequestOptions()
-                                .centerCrop())
+                        .load(author.getHeadImg())
+                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(getActivity(), 10)).centerCrop())
                         .into(bgImg);
                 name.setText(author.getName());
                 introduction.setText(author.getIntroduction());
@@ -182,8 +185,12 @@ public class AuthorFragment extends Fragment{
                     isFocus = aBoolean;
                     if (isFocus){
                         focus.setText("已关注");
+                        focus.setBackground(resources.getDrawable(R.color.colorPrimaryDark));
+                        focus.setTextColor(resources.getColor(R.color.white));
                     } else {
                         focus.setText("关注");
+                        focus.setBackground(resources.getDrawable(R.color.white));
+                        focus.setTextColor(resources.getColor(R.color.colorPrimaryDark));
                     }
                 }
 
@@ -218,7 +225,7 @@ public class AuthorFragment extends Fragment{
         fansNum = view.findViewById(R.id.tv_fansNum_personal);
         focusNum = view.findViewById(R.id.tv_attentionNum_personal);
         viewAll = view.findViewById(R.id.tv_view_all);
-        focus = view.findViewById(R.id.tv_focus);
+        focus = view.findViewById(R.id.btfocus0);
         setting = view.findViewById(R.id.iv_settings_personal);
     }
 
@@ -264,6 +271,8 @@ public class AuthorFragment extends Fragment{
                         if (aBoolean == true){
                             isFocus = false;
                             focus.setText("关注");
+                            focus.setBackground(resources.getDrawable(R.color.white));
+                            focus.setTextColor(resources.getColor(R.color.colorPrimaryDark));
                         }
                     }
 
@@ -294,6 +303,8 @@ public class AuthorFragment extends Fragment{
                             if (aBoolean){
                                 isFocus = true;
                                 focus.setText("正在关注");
+                                focus.setBackground(resources.getDrawable(R.color.colorPrimaryDark));
+                                focus.setTextColor(resources.getColor(R.color.white));
                             }
                         }
 

@@ -17,13 +17,13 @@
         android:theme="@style/MyEditText" />
     <Button
         android:id="@+id/bt_search"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:background="@mipmap/meixu"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/isearch"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         />
     <View
         android:layout_below="@+id/tv_search"

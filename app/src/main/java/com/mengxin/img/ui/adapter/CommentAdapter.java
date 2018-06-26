@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.mengxin.img.R;
 import com.mengxin.img.data.dto.Comment;
+import com.mengxin.img.utils.TimeUtils;
 
 import java.util.ArrayList;
 
@@ -55,7 +56,7 @@ public class CommentAdapter extends BaseAdapter{
         TextView content = convertView.findViewById(R.id.tv_comment_content);
         Comment comment = comments.get(position);
         name.setText(comment.getAuthor().getName());
-        time.setText(comment.getPublishTime().toString());
+        time.setText(TimeUtils.getFormat(comment.getPublishTime()));
         content.setText(comment.getContent());
         Glide.with(context)
                 .load(comment.getAuthor().getHeadImg())
